@@ -51,7 +51,7 @@ ax1.set_xticklabels(['Družina z zakonskima ali \n zunajzakonskima partnerjema',
 ax1.yaxis.grid(True, linestyle='-', which='major', color='lightgrey', alpha=0.25)
 ax1.set(axisbelow=True, title="DOHODKI GLEDE NA TIP DRUŽINE", ylabel='Dohodek')
 
-#plt.show()
+plt.show()
 
 #----------------------------------------------------------------------------------------------
 # naloga 1 b)
@@ -63,7 +63,6 @@ doh_tip1_eno4 = tip_druzine1.sample(velikost_vzorca, replace = False, random_sta
 doh_tip1_eno5 = tip_druzine1.sample(velikost_vzorca, replace = False, random_state=13).DOHODEK
 
 vsa_en_vz_tip1 = [doh_tip1_eno1, doh_tip1_eno2, doh_tip1_eno3, doh_tip1_eno4, doh_tip1_eno5]
-
 
 fig2 = plt.figure(figsize =(10, 7))
 
@@ -93,7 +92,7 @@ for flier in bp2['fliers']:
 ax2.yaxis.grid(True, linestyle='-', which='major', color='lightgrey', alpha=0.25)
 ax2.set(axisbelow=True, title="DOHODKI DRUŽIN Z DVEMA PARTNERJEMA (PRI RAZLIČNIH ENOSTAVNIH VZORČENJIH)", ylabel='Dohodek')
 
-#plt.show()
+plt.show()
 
 #---------------------------------------------------------------------------------------------------------------------------
 # naloga 1 c)
