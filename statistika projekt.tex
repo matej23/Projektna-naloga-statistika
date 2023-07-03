@@ -15,7 +15,7 @@
 \usepackage{float}
 
 \DeclareMathOperator{\EX}{\mathbb{E}}
-
+%\setlength{\abovecaptionskip}{15pt plus 3pt minus 2pt}
 
 \begin{document}
 
@@ -31,12 +31,21 @@
 
 \begin{figure}[H]
     \begin{center}
-    %\includegraphics[width=320pt]{naloga1a.png}
-    %\caption{Večje število odbojev na diskretni verižnici}
+    \includegraphics[width=\linewidth]{naloga1a.png}
+    \vspace*{-10mm}\caption{Škatle z brki za dohodke različnih tipov družin}
     \end{center}    
 \end{figure}
 
 
+\begin{figure}[H]
+    \begin{center}
+    \includegraphics[width=\linewidth]{naloga1b.png}
+    \vspace*{-10mm}\caption{Škatle z brki za dohodke družin z dvema partnerjema}
+    \end{center}    
+\end{figure}
+
+
+\pagebreak
 
 \section{Naloga 2}
 Vredno je zapisati nekoliko bolj matematično interpretacijo problema/navodila. 
@@ -120,9 +129,6 @@ $$
     FI^{-1}(\theta) = \frac{1}{4}\frac{\theta^2}{n},~\text{zato asimptotično velja:}~~MSE(\hat{\theta}_{MNV}) \approx \frac{\theta^2}{n} \cdot 0{,}25. 
 $$
 Opazimo, da je faktor pred asimptotično srednje kvadratično napako za cenilko, dobljeno po metodi največjega verjetja nekoliko manjši, zato je vsaj asimptotično cenilka $\hat{\theta}_{MNV}$ nekoliko boljša od cenilke $\hat{\theta}_{MM}$.
-
-
-
 
 
 
