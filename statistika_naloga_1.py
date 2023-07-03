@@ -13,6 +13,9 @@ tip_druzine1 = podatki[podatki.TIP == 1]
 tip_druzine2 = podatki[podatki.TIP == 2]
 tip_druzine3 = podatki[podatki.TIP == 3]
 
+print('---------------------------------------------------------------------------------------------------------')
+print(f'Imamo {len(tip_druzine1)} podatkov od družin tipa 1, {len(tip_druzine2)} podatkov od družin tipa 2 in {len(tip_druzine3)} podatkov od družin tipa 3.')
+print('---------------------------------------------------------------------------------------------------------')
 velikost_vzorca = 500
 
 eno_vz_za_doh_tip1 = tip_druzine1.sample(velikost_vzorca, replace = False, random_state=9).DOHODEK
@@ -51,7 +54,7 @@ ax1.set_xticklabels(['Družina z zakonskima ali \n zunajzakonskima partnerjema',
 ax1.yaxis.grid(True, linestyle='-', which='major', color='lightgrey', alpha=0.25)
 ax1.set(axisbelow=True, title="DOHODKI GLEDE NA TIP DRUŽINE", ylabel='Dohodek')
 
-plt.show()
+#plt.show()
 
 #----------------------------------------------------------------------------------------------
 # naloga 1 b)
@@ -92,18 +95,18 @@ for flier in bp2['fliers']:
 ax2.yaxis.grid(True, linestyle='-', which='major', color='lightgrey', alpha=0.25)
 ax2.set(axisbelow=True, title="DOHODKI DRUŽIN Z DVEMA PARTNERJEMA (PRI RAZLIČNIH ENOSTAVNIH VZORČENJIH)", ylabel='Dohodek')
 
-plt.show()
+#plt.show()
 
 #---------------------------------------------------------------------------------------------------------------------------
 # naloga 1 c)
-N = len(podatki)
-N1 = len(tip_druzine1)
-N2 = len(tip_druzine2)
-N3 = len(tip_druzine3)
+n = len(podatki)
+n1 = len(tip_druzine1)
+n2 = len(tip_druzine2)
+n3 = len(tip_druzine3)
 
-w1 = N1/N
-w2 = N2/N
-w3 = N3/N
+w1 = n1/n
+w2 = n2/n
+w3 = n3/n
 
 mu1 = np.mean(tip_druzine1.DOHODEK)
 mu2 = np.mean(tip_druzine2.DOHODEK)
@@ -123,9 +126,15 @@ skupna_varianca = pojasnjena_var + nepojasnjena_var
 
 delez_pojasnjene_variance = pojasnjena_var/skupna_varianca
 
-
 pojasnjen_standardni_odklon = math.sqrt(pojasnjena_var)
-print(round(pojasnjena_var, 2))
-print(round(nepojasnjena_var, 2))
-print(round(delez_pojasnjene_variance, 6))
-print(round(pojasnjen_standardni_odklon, 2))
+
+('---------------------------------------------------------------------------------------------------------')
+print(f'Povprečna vrednost za tip družine 1: {round(mu1,2)}.')
+print(f'Povprečna vrednost za tip družine 2: {round(mu2,2)}.')
+print(f'Povprečna vrednost za tip družine 3: {round(mu3,2)}.')
+print('---------------------------------------------------------------------------------------------------------')
+print(f'S tipom družine pojasnjena varianca znaša: {round(pojasnjena_var, 2)}.')
+print(f'Nepojasnjena varianca znaša: {round(nepojasnjena_var, 2)}.')
+print(f'Delež pojasnjene varinace znaša: {round(delez_pojasnjene_variance, 6)}.')
+print(f'Pojasnjeni standardni odklon dohodka glede na tip družine znaša: {round(pojasnjen_standardni_odklon, 2)}.')
+print('---------------------------------------------------------------------------------------------------------')
