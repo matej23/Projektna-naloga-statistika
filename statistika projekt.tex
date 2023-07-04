@@ -95,7 +95,7 @@ Vrednost deleža pojasnjene variance le dodatno potrdi že zapisano.
 
 \pagebreak
 
-\section{Naloga 2}
+\section{Kromatin}
 Vredno je zapisati nekoliko bolj matematično interpretacijo problema/navodila. 
 Podatki pripadajo trem različnim eksperimentom (podatki so ločeni glede na dolžino opazovanega Kromatina), ki bodo določali končne vrednosti in rezultate, a so problemi, ki jih podajajo, teoretično iste narave. 
 Za podan problem sedaj razvijemo teoretični pristop in se lotimo reševanja podnaloge a) in b). 
@@ -226,7 +226,7 @@ Pomen (ocene) standardne napake je enak tistemu, ki smo ga komentirali na začet
 KOMENTAR STANDARDNE NAPAKE, ZAKAJ JE RELEVANTNA??
 \newline
 \newline
-Podatke znotraj vrste Kromatina sedaj predstavimo še z histogramom. Pri tem določimo širino bloka oziroma število blokov histograma s pomočjo modificiranega Freedman–Diaconisovega pravila. 
+Podatke znotraj vrste Kromatina sedaj predstavimo še s histogramom. Pri tem določimo širino bloka oziroma število blokov histograma s pomočjo modificiranega Freedman–Diaconisovega pravila. 
 Ta nam prek medkvartilnega razmika določi optimalno širino blokov histograma. Omenjena optimalna širina bloka pri kratkem Kromatinu znaša $0.4685$, za srednji Kromatin $0.7976$, za dolgi Kromatin pa $1.4145$.
 Zapisane vrednosti širine blokov, se glede na razpon podatkov najbolje ujemajo (najbližje naravno število) s $7$ bloki pri kratkem Kromatinu, s $7$ bloki pri srednjem Kromatinu in z $8$ bloki pri dolgem Kromatinu. 
 Za vsako vrsto Kromatina, na pripadajoč histogram (določen s zgoraj zapisanim številom blokov) dorišimo še pripadajoči oceni za gostoti, ki smo jo dobili iz ocene za $\theta$ po metodi momentov in po metodi največjega verjetja. 
@@ -236,12 +236,13 @@ Za vsako vrsto Kromatina, na pripadajoč histogram (določen s zgoraj zapisanim 
     \vspace*{-5mm}\caption{Histogrami in ocenjene gostote za različne vrste Kromatina}
     \end{center}    
 \end{figure}
-Kot je to zapisano v legendi, sta gostoti na pripadajočem histogramu dorisani z barvno usklajeno črto, tip katere pa se razlikuje glede na metodo, ki nam je omogočala izračun ocene gostote.
-Vredno je omeniti, da gre za prikaz skaliranih (množiili smo s skupno površino histograma) gostot, saj bomo le na ta način lahko smiselno komentirali prileganje. 
+Kot je to zapisano že v legendi, sta gostoti na pripadajočem histogramu dorisani z barvno usklajeno črto, tip katere pa se razlikuje glede na metodo, ki nam je omogočala izračun ocene gostote.
+Vredno je omeniti, da gre za prikaz skaliranih (množili smo s skupno površino histograma) gostot, saj bomo le na ta način lahko smiselno komentirali prileganje. 
+\newline
 Sedaj zapišimo nekaj splošnih opazk.
 Pri histogramu za srednji Kromatin opazimo, da se grafa ocen gostot skoraj ujemata, obenem pa se (izmed vseh vrst Kromatina) oceni gostot najbolj prilegata podatkom, predstavljenim s histogramom. 
 Skorajšno prekrivanje ocen gostot na omenjenem grafu, je posledica bližine vrednosti za oceno cenilke obeh metod ($2.0748$ pri metodi momentov,  in $2.0812$ pri metodi največjega verjetja).
-Oceni za gostoti se pri dolgem Kromatinu dokaj dobro ujemata s obliko histograma okoli vrednosti $4$, ter v desnem robu prikaza, drugod pa se obe gostoti minimalno odmakneta od histograma. 
+Oceni za gostoti se pri dolgem Kromatinu dokaj dobro ujemata z obliko histograma okoli vrednosti $4$, ter v desnem robu prikaza, drugod pa se obe gostoti minimalno odmakneta od histograma. 
 Nekoliko manj smo lahko navdušeni nad ujemanjem grafov gostot s histogramom pri podatkih kratkega Kromatina. Tu je pomanjkanje ujemanja nekoliko posledica tudi tega, da pri izbiri števila blokov za ta primer število zaokrožimo navzgor.
 Če število blokov za ta primer ročno zmanjšamo za $1$, pridemo do nekoliko lepšega ujemanja, vidnega na spodnji sliki.
 \begin{figure}[H]
