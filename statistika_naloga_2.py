@@ -63,48 +63,61 @@ fig.tight_layout(pad=3.0)
 
 ax1.yaxis.grid(True, linestyle='-', which='major', color='lightgrey', alpha=0.25)
 ax1.set(axisbelow=True, ylabel='Verjetje', xlabel = "Vrednost parametra")
-ax1.set_title('Verjetje za kratek Kromatin', loc="right")
+#ax1.set_title('Verjetje za kratek Kromatin', loc="right")
 
 ax2.yaxis.grid(True, linestyle='-', which='major', color='lightgrey', alpha=0.25)
 ax2.set(axisbelow=True, ylabel='Verjetje', xlabel = "Vrednost parametra")
-ax2.set_title('Verjetje za srednji Kromatin', loc="right")
+#ax2.set_title('Verjetje za srednji Kromatin', loc="right")
 
 ax3.yaxis.grid(True, linestyle='-', which='major', color='lightgrey', alpha=0.25)
 ax3.set(axisbelow=True, ylabel='Verjetje', xlabel = "Vrednost parametra")
-ax3.set_title('Verjetje za dolgi Kromatin', loc="right")
+#ax3.set_title('Verjetje za dolgi Kromatin', loc="right")
 
 ax1.plot(theta, vrednost_verjetja_kratki, color='r')
+ax1.legend(['Verjetje za kratek Kromatin'])
 ax2.plot(theta, vrednost_verjetja_srednji, color='g')
+ax2.legend(['Verjetje za srednji Kromatin'])
 ax3.plot(theta, vrednost_verjetja_dolgi, color='b')
+ax3.legend(['Verjetje za dolgi Kromatin'])
 
 ax1.plot([theta_mnv_kratki, theta_mnv_kratki], [0, verjetje(theta_mnv_kratki, kromatin_kratki)], linestyle='--', color="#FF9E9E")
 ax1.plot(theta_mnv_kratki, verjetje(theta_mnv_kratki, kromatin_kratki), marker='o', color="black")
+ax1.plot([theta_mnv_kratki - se_mnv_kratki, theta_mnv_kratki + se_mnv_kratki], [1* 10**(-40), 1 * 10**(-40)], linestyle='--', color="#FF9E9E")
+ax1.plot(theta_mnv_kratki- se_mnv_kratki, 1 * 10**(-40), marker="|", color="#FF9E9E")
+ax1.plot(theta_mnv_kratki+ se_mnv_kratki, 1 * 10**(-40), marker="|", color="#FF9E9E")
 
-#ax1.plot([theta_mnv_kratki - se_mnv_kratki, theta_mnv_kratki - se_mm_kratki], [0, verjetje(theta_mnv_kratki - se_mnv_kratki, kromatin_kratki)], linestyle='-', color="black")
-ax1.plot(theta_mnv_kratki - se_mnv_kratki, verjetje(theta_mnv_kratki - se_mnv_kratki, kromatin_kratki), marker='.', color="black")
-ax1.plot(theta_mnv_kratki + se_mnv_kratki, verjetje(theta_mnv_kratki + se_mnv_kratki, kromatin_kratki), marker='.', color="black")
+#ax1.plot(theta_mnv_kratki - se_mnv_kratki, verjetje(theta_mnv_kratki - se_mnv_kratki, kromatin_kratki), marker='.', color="black")
+#ax1.plot(theta_mnv_kratki + se_mnv_kratki, verjetje(theta_mnv_kratki + se_mnv_kratki, kromatin_kratki), marker='.', color="black")
 
 int_kratki = np.linspace(theta_mnv_kratki - se_mnv_kratki, theta_mnv_kratki + se_mnv_kratki,1000)
-ax1.fill_between(int_kratki, verjetje(int_kratki, kromatin_kratki), color='#FF9E9E', alpha=0.3)
+ax1.fill_between(int_kratki, 3.4*10**(-40), color='#FF9E9E', alpha=0.3)
 
 ax2.plot([theta_mnv_srednji, theta_mnv_srednji], [0, verjetje(theta_mnv_srednji, kromatin_srednji)], linestyle='--', color="#A6E681")
 ax2.plot(theta_mnv_srednji, verjetje(theta_mnv_srednji, kromatin_srednji), marker="o", color="black")
+ax2.plot([theta_mnv_srednji - se_mnv_srednji, theta_mnv_srednji + se_mnv_srednji], [2* 10**(-184), 2 * 10**(-184)], linestyle='--', color="#A6E681")
+ax2.plot(theta_mnv_srednji- se_mnv_srednji, 2 * 10**(-184), marker="|", color="#A6E681")
+ax2.plot(theta_mnv_srednji+ se_mnv_srednji, 2 * 10**(-184), marker="|", color="#A6E681")
 
 int_srednji = np.linspace(theta_mnv_srednji - se_mnv_srednji, theta_mnv_srednji + se_mnv_srednji, 1000)
-ax2.fill_between(int_srednji, verjetje(int_srednji, kromatin_srednji), color='#92F799', alpha=0.2)
+ax2.fill_between(int_srednji, 9.3*10**(-184), color='#92F799', alpha=0.2)
 
-ax2.plot(theta_mnv_srednji - se_mnv_srednji, verjetje(theta_mnv_srednji - se_mnv_srednji, kromatin_srednji), marker='.', color="black")
-ax2.plot(theta_mnv_srednji + se_mnv_srednji, verjetje(theta_mnv_srednji + se_mnv_srednji, kromatin_srednji), marker='.', color="black")
+#ax2.plot(theta_mnv_srednji - se_mnv_srednji, verjetje(theta_mnv_srednji - se_mnv_srednji, kromatin_srednji), marker='.', color="black")
+#ax2.plot(theta_mnv_srednji + se_mnv_srednji, verjetje(theta_mnv_srednji + se_mnv_srednji, kromatin_srednji), marker='.', color="black")
 
 
 ax3.plot([theta_mnv_dolgi, theta_mnv_dolgi], [0, verjetje(theta_mnv_dolgi, kromatin_dolgi)], linestyle='--', color="#7AB4FF")
 ax3.plot(theta_mnv_dolgi, verjetje(theta_mnv_dolgi, kromatin_dolgi), marker="o", color="black")
+ax3.plot([theta_mnv_dolgi - se_mnv_dolgi, theta_mnv_dolgi + se_mnv_dolgi], [1/4 * 10**(-119), 1/4 * 10**(-119)], linestyle='--', color="#7AB4FF")
+ax3.plot(theta_mnv_dolgi - se_mnv_dolgi, 1/4 * 10**(-119), marker="|", color="#7AB4FF")
+ax3.plot(theta_mnv_dolgi + se_mnv_dolgi, 1/4 * 10**(-119), marker="|", color="#7AB4FF")
 
 int_dolgi = np.linspace(theta_mnv_dolgi - se_mnv_dolgi, theta_mnv_dolgi + se_mnv_dolgi, 1000)
-ax3.fill_between(int_dolgi, verjetje(int_dolgi, kromatin_dolgi), color='#7AB4FF', alpha=0.3)
+ax3.fill_between(int_dolgi, 1.2*10**(-119), color='#7AB4FF', alpha=0.3)
+# verjetje(int_dolgi, kromatin_dolgi)
+#ax3.plot(theta_mnv_dolgi - se_mnv_dolgi, verjetje(theta_mnv_dolgi - se_mnv_dolgi, kromatin_dolgi), marker='.', color="black")
+#ax3.plot(theta_mnv_dolgi + se_mnv_dolgi, verjetje(theta_mnv_dolgi + se_mnv_dolgi, kromatin_dolgi), marker='.',  color="black")
 
-ax3.plot(theta_mnv_dolgi - se_mnv_dolgi, verjetje(theta_mnv_dolgi - se_mnv_dolgi, kromatin_dolgi), marker='.', color="black")
-ax3.plot(theta_mnv_dolgi + se_mnv_dolgi, verjetje(theta_mnv_dolgi + se_mnv_dolgi, kromatin_dolgi), marker='.',  color="black")
+#ax3.annotate("", xy=(3.5, 3.5), xytext=(0, 0), arrowprops=dict(arrowstyle="->"))
 
 #---------------------------------------------------------------------------------------------------------------------
 
@@ -114,8 +127,8 @@ print(f'KRATKI KROMATIN:\n -vrednost cenilke po metodi momentov znaša: {round(t
       f'\n -ocena za standardno napako po metodi momentov znaša: {round(se_mm_kratki, 6)}'
       f'\n -ocena za standardno napako po metodi največjega verjetja znaša: {round(se_mnv_kratki, 6)}')
 print('\n')
-print(f'SREDNJI KROMATIN:\n -vrednost cenilke po metodi momentov znaša: {round(theta_mm_srednji, 4)}'
-      f'\n -vrednost cenilke po metodi največjega verjetja znaša: {round(theta_mnv_srednji, 4)}'
+print(f'SREDNJI KROMATIN:\n -vrednost cenilke po metodi momentov znaša: {round(theta_mm_srednji,4)}'
+      f'\n -vrednost cenilke po metodi največjega verjetja znaša: {round(theta_mnv_srednji,4)}'
       f'\n -ocena za standardno napako po metodi momentov znaša: {round(se_mm_srednji, 6)}'
       f'\n -ocena za standardno napako po metodi največjega verjetja znaša: {round(se_mnv_srednji, 6)}')
 print('\n')
@@ -164,6 +177,12 @@ gostota_srednji_mm = gostota(int_gostota_srednji, theta_mm_srednji) * len(kromat
 gostota_srednji_mnv = gostota(int_gostota_srednji, theta_mnv_srednji) * len(kromatin_srednji.DOLZINA) * freedman_diaconis_srednji
 gostota_dolgi_mm = gostota(int_gostota_dolgi, theta_mm_dolgi) * len(kromatin_dolgi.DOLZINA) * freedman_diaconis_dolgi
 gostota_dolgi_mnv = gostota(int_gostota_dolgi, theta_mnv_dolgi) * len(kromatin_dolgi.DOLZINA) * freedman_diaconis_dolgi
+
+print(f'ŠIRINE IN ŠTEVILO BLOKOV PO MODIFICIRANEM FREEDMAN-DIACONISOVEM PRAVILU:\n'
+      f'-kratek Kromatin: širina: {round(freedman_diaconis_kratki,4)}, število blokov: {n_bins_kratki}\n'
+      f'-srednji Kromatin: širina: {round(freedman_diaconis_srednji,4)}, število blokov: {n_bins_srednji}\n'
+      f'-dolgi Kromatin: širina: {round(freedman_diaconis_dolgi,4)}, število blokov: {n_bins_dolgi}')
+print('-----------------------------------------------------------------------------')
 
 #--------------------------------------------------------------------------------------------------------
 
