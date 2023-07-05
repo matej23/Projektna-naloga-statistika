@@ -105,6 +105,10 @@ INPUT C:\Program Files\MiKTeX\tex\latex\graphics-def\pdftex.def
 INPUT C:\Program Files\MiKTeX\tex\latex\graphics-def\pdftex.def
 INPUT C:\Program Files\MiKTeX\tex\latex\float\float.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\float\float.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\doublestroke\dsfont.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\doublestroke\dsfont.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\arydshln\arydshln.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\arydshln\arydshln.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\l3backend\l3backend-pdfmode.def
 INPUT C:\Program Files\MiKTeX\tex\latex\l3backend\l3backend-pdfmode.def
 INPUT c:\Users\matej\OneDrive\Namizje\Projektna-naloga-statistika\statistika projekt.aux
@@ -206,6 +210,16 @@ INPUT c:\Users\matej\OneDrive\Namizje\Projektna-naloga-statistika\naloga2ff.png
 INPUT c:\Users\matej\OneDrive\Namizje\Projektna-naloga-statistika\naloga2ff.png
 INPUT c:\Users\matej\OneDrive\Namizje\Projektna-naloga-statistika\naloga2ff.png
 INPUT c:\Users\matej\OneDrive\Namizje\Projektna-naloga-statistika\naloga2ff.png
+INPUT c:\Users\matej\OneDrive\Namizje\Projektna-naloga-statistika\naloga3a.png
+INPUT c:\Users\matej\OneDrive\Namizje\Projektna-naloga-statistika\naloga3a.png
+INPUT c:\Users\matej\OneDrive\Namizje\Projektna-naloga-statistika\naloga3a.png
+INPUT c:\Users\matej\OneDrive\Namizje\Projektna-naloga-statistika\naloga3a.png
+INPUT c:\Users\matej\OneDrive\Namizje\Projektna-naloga-statistika\naloga3a.png
+INPUT C:\Program Files\MiKTeX\tex\latex\doublestroke\udsrom.fd
+INPUT C:\Program Files\MiKTeX\tex\latex\doublestroke\udsrom.fd
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\doublestroke\dsrom10.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\doublestroke\dsrom8.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\doublestroke\dsrom8.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmri10.tfm
 INPUT C:\Program Files\MiKTeX\tex\latex\lm\t1lmtt.fd
 INPUT C:\Program Files\MiKTeX\tex\latex\lm\t1lmtt.fd
@@ -214,6 +228,8 @@ INPUT c:\Users\matej\OneDrive\Namizje\Projektna-naloga-statistika\statistika pro
 INPUT c:\Users\matej\OneDrive\Namizje\Projektna-naloga-statistika\statistika projekt.out
 INPUT c:\Users\matej\OneDrive\Namizje\Projektna-naloga-statistika\statistika projekt.out
 INPUT C:\Program Files\MiKTeX\fonts\enc\dvips\lm\lm-ec.enc
+INPUT C:\Users\matej\AppData\Local\MiKTeX\fonts\pk\ljfour\public\doublestroke\dpi600\dsrom10.pk
+INPUT C:\Users\matej\AppData\Local\MiKTeX\fonts\pk\ljfour\public\doublestroke\dpi600\dsrom10.pk
 INPUT C:\Program Files\MiKTeX\fonts\enc\dvips\lm\lm-mathsy.enc
 INPUT C:\Program Files\MiKTeX\fonts\enc\dvips\lm\lm-mathit.enc
 INPUT C:\Program Files\MiKTeX\fonts\enc\dvips\lm\lm-rm.enc

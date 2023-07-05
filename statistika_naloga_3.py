@@ -10,21 +10,17 @@ Y_podatki = temperature.TEMPERATURA
 leta = temperature.LETO
 meseci = temperature.MESEC
 
-X_eno = [[1, leta[i] + meseci[i]/12 - 1986] for i in range(len(Y_podatki))]
-X_nihanje = [[1, leta[i] - 1986, meseci[i]] for i in range(len(Y_podatki))]
-
-def sum_xi2(X):
-    vsota = 0
-    for i in range(len(X)):
-        vsota += X[i]**2
-    return vsota
-
-def sum_xiyi(X, Y):
-    vsota = 0
-    for i in range(len(X)):
-        vsota += X[i]*Y[i]
-    return vsota
-
+X_eno = [[1, leta[i] + meseci[i]/12] for i in range(len(Y_podatki))]
+X_nihanje = [([leta[i]+ meseci[i]/12] + [1 if meseci[i] == j else 0 for j in range(1, 13)]) for i in range(len(Y_podatki))]
+"""
+X_nihanje_pomozni = [([leta[i]+ meseci[i]/12] + [[1, leta[i] + meseci[i]/12] if meseci[i] == j else [0,0] for j in range(1, 13)]) for i in range(len(Y_podatki))]
+X_nihanje_neuspelo = []
+for i in range(len(X_nihanje_pomozni)):
+    vrstica_i = [X_nihanje_pomozni[i][0]]
+    for j in range(1, len(X_nihanje_pomozni[i])):
+        vrstica_i += X_nihanje_pomozni[i][j]
+    X_nihanje_neuspelo.append(vrstica_i)
+"""
 #-----------------------------------------------------------------------------
 def cenilka_beta(X,Y):
     Xt = np.array(X).transpose()
@@ -39,27 +35,31 @@ b0_eno = beta_eno[0]
 b1_eno = beta_eno[1]
 
 beta_nihanje = cenilka_beta(X_nihanje, Y_podatki)
-b0_nih = beta_nihanje[0]
-b1_nih = beta_nihanje[1]
-b2_nih = beta_nihanje[2]
+b0_nihanje = beta_nihanje[0]
+b1_12_nihanje = beta_nihanje[1:]
 
-interval = np.linspace(0, 35, 1000)
+interval = np.linspace(1986, 35 + 1986, 1000)
 premica_eno_lin_reg = b0_eno + interval * b1_eno
 
 fig, ax = plt.subplots()
 
-# We need to draw the canvas, otherwise the labels won't be positioned and 
-# won't have values yet.
-fig.canvas.draw()
+X_graf = [[leta[i] + meseci[i]/12] for i in range(len(Y_podatki))]
 
+ax.plot(interval, premica_eno_lin_reg, c ='#CC0066')
+ax.legend(['Linearen trend spreminjanja temperature skozi leta, zaznan z enostavno linearno regresijo'])
+ax.scatter(X_graf, Y_podatki, c ="#3399FF", marker ='.')
 
-X_graf = [[leta[i] + meseci[i]/12 - 1986] for i in range(len(Y_podatki))]
-
-ax.plot(interval, premica_eno_lin_reg, c ='r')
-ax.scatter(X_graf, Y_podatki, c ="blue")
-
-#labels = [f'{1986 + 5*(i-1)}' for i in range(9)]
-#ax.set_xticklabels(labels)
+ax.yaxis.grid(True, linestyle='-', which='major', color='lightgrey', alpha=0.25)
+ax.set(axisbelow=True, title="PODATKI O POVPREČNIH MESEČNIH TEMPERATURAH SKOZI LETA", ylabel='Temperatura', xlabel = 'Leto')
 
 #plt.show()
 
+('---------------------------------------------------------------------------------------------------------')
+print(f'Enostavna linearna regresija nam da številski oceni: \n'
+      f'-beta_0: {round(b0_eno,4)}\n'
+      f'-beta_1: {round(b1_eno,6)}')
+print('---------------------------------------------------------------------------------------------------------')
+print(f'Model linearne regresija, ki upoštevanje nihanje temperature skozi leti nam da številske ocene:\n'
+      f'-beta_0: {round(b0_nihanje,6)}\n'
+      f'-[beta_1, beta_2, ..., beta_12]: {b1_12_nihanje}')
+print('---------------------------------------------------------------------------------------------------------')

@@ -13,6 +13,8 @@
 \usepackage{mathtools}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{dsfont}
+\usepackage{arydshln}
 
 \DeclareMathOperator{\EX}{\mathbb{E}}
 %\setlength{\abovecaptionskip}{15pt plus 3pt minus 2pt}
@@ -258,10 +260,11 @@ Kljub temu smo lahko nad ujemanjem gostot (med seboj) in histograma pri vseh vrs
 
 \section{Naloga 3}
 Naloga nam pove, da imamo podane mesečne temperature (torej $12$ podatkov letno) za $n$ zaporednih let (v našem primeru podatki med letoma $1986$ in $2020$, torej $n = 35$).
-Podnaloga a) nam narekuje, da podatke o meritvah zapišemo kot urejene pare, da se bomo lahko problema lotili z enostavno linearno regresijo.
+Smiselno je podatke o meritvah zapisati kot urejene pare, da se bomo lahko problema lotili z linearno regresijo.
 Opažene meritve so smiselno časovne urejene (leto-mesec), zato si podatke lahko predstavljamo kot pare $(x_i,~y_i)_{i=1,~2,~\dots,~12n}$, kjer $x_i$ predstavlja časovno komponento problema, $y_i$ pa opaženo temperaturo pri časovno $i$-ti meritvi. 
-V resnici lahko le pretvorimo podatek oblike: $(leto,~mesec,~temperatura)$ v par $(leto + mesec/12 - 1986,~temperatura)$ (tu je $-1986$ le zato, ker je to leto našega prvega podatka, lahko bi brez tega).
-Sedaj označimo: 
+V resnici lahko le pretvorimo podatek oblike: $(leto,~mesec,~temperatura)$ v par $(leto + mesec/12,~temperatura)$.
+Lotimo se najprej podnaloge a), z enostavno linearno regresijo.
+Označimo:
 $$
     X = \begin{bmatrix}
         1 & x_1\\ 
@@ -282,15 +285,103 @@ $$
 $$
 
 V duhu enostavne linearne regresije iščemo $\beta_0$ in $\beta_1$, tako da se bo $X \beta$ po metodi najmanjših kvadratov najbolje prilegal $Y$.
-Teorija nam pove, da lahko $\beta_0$ in $\beta_1$ ocenimo s cenilkama:
+Teorija nam pove, da lahko $\beta$ ocenimo s cenilko:
 $$
-\begin{aligned}
-& \hat{\beta}_{0}=\frac{\left(\sum_{i=1}^{12n} x_{i}^{2}\right)\left(\sum_{i=1}^{12n} y_{i}\right)-\left(\sum_{i=1}^{12n} x_{i}\right)\left(\sum_{i=1}^{12n} x_{i} y_{i}\right)}{12n \sum_{i=1}^{12n} x_{i}^{2}-\left(\sum_{i=1}^{12n} x_{i}\right)^{2}} \\
-& \hat{\beta}_{1}=\frac{12n \sum_{i=1}^{12n} x_{i} y_{i}-\left(\sum_{i=1}^{12n} x_{i}\right)\left(\sum_{i=1}^{12n} y_{i}\right)}{12n \sum_{i=1}^{12n} x_{i}^{2}-\left(\sum_{i=1}^{12n} x_{i}\right)^{2}}
-\end{aligned}
+    \hat{\beta} = \Big(X^{T}X\Big)^{-1}X^{T}Y.
 $$
+Podane podatke bomo sedaj obdelali s pomočjo datoteke $statistika\_naloga\_3.py$. 
+Konstruiramo zgoraj definirane matrike in po formuli za $\hat{\beta}$ poračunamo tudi številsko oceno za $\beta$. Ta pri danih podatkih številska ocena za $\beta_0$ znaša $-125.5905$, medtem ko številska ocena za $\beta_1$ znaša $0.068303$.
+\newline
+Številska ocena za $\beta_1$ je za nas (iz vidika podnaloge a)) nekoliko bolj zanimiva, saj njena vrednost opisuje (glede na podatke) opažen linearen trend (v tem primeru zaradi pozitivnosti številske ocene) naraščanja temperature skozi leta.
+Ta nam nakazuje, da se v povprečju temperatura letno dvigne za $0.068303$ stopinje. 
+Podatki so grafično predstavljeni na spodnji sliki. 
+\begin{figure}[H]
+    \begin{center}
+    \includegraphics[width=\linewidth]{naloga3a.png}
+    \vspace*{-5mm}\caption{Temperature skozi leta in linearen trend enostavne linearne regresije}
+    \end{center}    
+\end{figure}
+
+Vseeno z opazkami, predvsem o naraščujočem linearnem trendu, ravnajmo nekoliko bolj previdno. 
+Oglejmo si, ali je opisan linearen trend spreminjanja temperature s časom statistično značilen. 
+\newline
+\newline
+KAJ SPLOH JE TO ??? 
+\newline
+
+Drugega dela (podnaloge b)) se lotimo z modifikacijo prvega dela. Želimo konstruirati model, ki bo vključeval tudi letno nihanje temperature. 
+Podatke spet obravnavamo kot pare $(x_j,~y_j)$. Definirajmo:
+$$
+\mathds{1}_i(x_j)= \begin{cases}
+    1;~ i \equiv j~(\text{mod}~12) \\
+    0;~\text{sicer}
+\end{cases};~~i \in \{1,~2,~\dots,~12\},~j \in \{1,~2,~\dots,~12n\}.
+$$
+V resnici vsaka izmed indikatorskih funkcij predstavlja svoj (z zaporednim indeksom določen) mesec, $x_j$ pa so časovno (z letom in mesecem) urejene meritve. 
+Opazimo, da je vrednost indikatorske funkcije za nek mesec na meritvi neničelna (enaka $1$) natanko tedaj, ko je bila meritev opravljena v mesecu, ki določa indikatorsko funkcijo.
+Indikatorske funkcije nam bodo omogočale zamik podatkov vsakega meseca tako, da bomo upoštevali nihanje temperature znotraj leta. 
+Vredno je poskusiti z modelom oblike:
+$$
+    y_j = \beta_0 x_j + \sum_{i=1}^{12}{\beta_{i}~\mathds{1}_i(x_j)},~j \in \{1,~2,~\dots,~12n\}.
+$$
+Zapisan model si v resnici lahko predstavljamo kot posplošitev modela iz prve podnaloge, z različno vrednostjo konstantne člena za podatke vsakega meseca. 
+\newline
+\newline
+Sedaj lahko zapišimo v  matrični obliki in postopajmo prek postopka za linearno regresijo. 
+$$
+X= \left[\begin{array}{c:ccccc}
+    x_1 & 1 & 0 & 0 & \dots & 0 \\
+    x_2 & 0 & 1 & 0 & \dots & 0 \\
+    x_3 & 0 & 0 & \ddots & & \vdots \\
+    \vdots & \vdots & \vdots & & \ddots & \vdots \\
+    x_{n} & 0 & 0 & 0 & \dots & 1 \\
+    \hdashline
+    x_{n+1} & 1 & 0 & 0 & \dots & 0 \\
+    x_{n+2} & 0 & 1 & 0 & \dots & 0 \\
+    x_{n+3} & 0 & 0 & \ddots & & \vdots \\
+    \vdots & \vdots & \vdots & & \ddots&\vdots \\
+    x_{2n} & 0 & 0 & 0 & \dots & 1\\
+    \hdashline
+    \vdots & \vdots & \vdots & \vdots & \dots&\vdots\\
+    \hdashline
+    x_{11n+1} & 1 & 0 & 0 & \dots & 0 \\
+    x_{11n+2} & 0 & 1 & 0 & \dots & 0 \\
+    x_{11n+3} & 0 & 0 & \ddots & & \vdots \\
+    \vdots & \vdots & \vdots & & \ddots&\vdots \\
+    x_{12n} & 0 & 0 & 0 & \dots & 1 \\
+\end{array}\right], ~
+    Y = \begin{bmatrix}
+        y_1 \\ 
+        y_2 \\
+        \vdots \\ 
+        y_{12n}
+    \end{bmatrix}~\text{in}~ 
+    \beta = \begin{bmatrix}
+        \beta_0 \\ 
+        \hdashline
+        \beta_1 \\ 
+        \vdots \\ 
+        \beta_{12}
+    \end{bmatrix}.   
+$$
+Podatke spet vnesemo v zgoraj omenjeno $python$ datoteko, ki nam (po formuli za cenilko $\hat{\beta}$) vrne številske ocene za posamezne koordinate $\beta$.
+Številska vrednost ocene v našem primeru za $\beta_0$ znaša $0.064636$, za preostale koordinate pa dobimo številske ocene:
+\begin{equation*}
+\begin{split}
+    \hat{\beta}_1 &= -128.6196,~\hat{\beta}_2 = -126.9164,~\hat{\beta}_3 = -122.6018,~\hat{\beta}_4 = -118.0643,\\
+    \hat{\beta}_5  &= -113.4983,~\hat{\beta}_6 = -109.8351,~\hat{\beta}_7 = -107.8233,~\hat{\beta}_8 = -108.3830,\\
+    \hat{\beta}_9 &= -113.4112,~\hat{\beta}_{10} = -118.1481,~\hat{\beta}_{11} = -123.4162,~\hat{\beta}_{12} = -128.2103.
+\end{split}
+\end{equation*}
+Opazimo, da se vrednosti številskih ocen za $\beta_1,~\beta_2,~\dots,~\beta_{12}$ gibljejo okoli vrednosti iz prejšnega primera (enostavna linearna regresija, kjer je bila vrednost številske ocene za $\beta_1$ enaka $-125.5905$). 
+To je bilo seveda za pričakovati, saj kot smo že omenili, gre pri vrednostih $\beta_1,~\beta_2,~\dots,~\beta_{12}$ le za prek meseca določeno konstanto (mesecu pripada njegova zaporedna številka, zaporedni številki pa pripadajoča zaporedna koordinatna ocena za $\beta$), v primeru enostavnega slučajnega vzorčenja, pa je $\beta_1$ predstavljala konstanto, določeno ne glede na mesec (torej za vse mesece hkrati). 
+Vredno je omeniti tudi, da so konstante pri tipično bolj toplih mesecih (na primer maj-$5$, junij-$6$, julij-$7$) nekoliko večje, pri tipično nekoliko hladnejših mesecih (na primer november-$11$, december-$12$, januar$1$), pa nekoliko manjše.
+Zgoraj omenjene opazke, se ujemajo z intuicijo spreminjanja skozi leto in nakazujejo ustrezno posplošitev modela enostavne linearne regresije na model, ki upošteva tudi letno nihanje temperature. 
 
 
+
+
+SEDAJ SI OGLEJMO LINEAREN TREND SPREMNINJANJE TEMPERATURE, V TAKO ZASTAVLJENEM MODELU!
 
 \bibliographystyle{siam}
 \begin{thebibliography}{9}
