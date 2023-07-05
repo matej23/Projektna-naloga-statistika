@@ -290,7 +290,7 @@ $$
     \hat{\beta} = \Big(X^{T}X\Big)^{-1}X^{T}Y.
 $$
 Podane podatke bomo sedaj obdelali s pomočjo datoteke $statistika\_naloga\_3.py$. 
-Konstruiramo zgoraj definirane matrike in po formuli za $\hat{\beta}$ poračunamo tudi številsko oceno za $\beta$. Ta pri danih podatkih številska ocena za $\beta_0$ znaša $-125.5905$, medtem ko številska ocena za $\beta_1$ znaša $0.068303$.
+Konstruiramo zgoraj definirane matrike in po formuli za $\hat{\beta}$ poračunamo tudi številsko oceno za $\beta$. Ta pri danih podatkih za $\beta_0$ znaša $-125.5905$, za $\beta_1$ pa znaša $0.068303$.
 \newline
 Številska ocena za $\beta_1$ je za nas (iz vidika podnaloge a)) nekoliko bolj zanimiva, saj njena vrednost opisuje (glede na podatke) opažen linearen trend (v tem primeru zaradi pozitivnosti številske ocene) naraščanja temperature skozi leta.
 Ta nam nakazuje, da se v povprečju temperatura letno dvigne za $0.068303$ stopinje. 
@@ -322,7 +322,7 @@ Opazimo, da je vrednost indikatorske funkcije za nek mesec na meritvi neničelna
 Indikatorske funkcije nam bodo omogočale zamik podatkov vsakega meseca tako, da bomo upoštevali nihanje temperature znotraj leta. 
 Vredno je poskusiti z modelom oblike:
 $$
-    y_j = \beta_0 x_j + \sum_{i=1}^{12}{\beta_{i}~\mathds{1}_i(x_j)},~j \in \{1,~2,~\dots,~12n\}.
+    y_j = \beta_0 x_j + \sum_{i=1}^{12}{\beta_{i}~\mathds{1}_i(x_j)} + \epsilon_j,~j \in \{1,~2,~\dots,~12n\}.
 $$
 Zapisan model si v resnici lahko predstavljamo kot posplošitev modela iz prve podnaloge, z različno vrednostjo konstantne člena za podatke vsakega meseca. 
 \newline
@@ -375,20 +375,116 @@ Podatke spet vnesemo v zgoraj omenjeno $python$ datoteko, ki nam (po formuli za 
 \end{equation*}
 Opazimo, da se vrednosti številskih ocen za $\beta_1,~\beta_2,~\dots,~\beta_{12}$ gibljejo okoli vrednosti iz prejšnega primera (enostavna linearna regresija, kjer je bila vrednost številske ocene za $\beta_1$ enaka $-125.5905$). 
 To je bilo seveda za pričakovati, saj kot smo že omenili, gre pri vrednostih $\beta_1,~\beta_2,~\dots,~\beta_{12}$ le za prek meseca določeno konstanto (mesecu pripada njegova zaporedna številka, zaporedni številki pa pripadajoča zaporedna koordinatna ocena za $\beta$), v primeru enostavnega slučajnega vzorčenja, pa je $\beta_1$ predstavljala konstanto, določeno ne glede na mesec (torej za vse mesece hkrati). 
-Vredno je omeniti tudi, da so konstante pri tipično bolj toplih mesecih (na primer maj-$5$, junij-$6$, julij-$7$) nekoliko večje, pri tipično nekoliko hladnejših mesecih (na primer november-$11$, december-$12$, januar$1$), pa nekoliko manjše.
-Zgoraj omenjene opazke, se ujemajo z intuicijo spreminjanja skozi leto in nakazujejo ustrezno posplošitev modela enostavne linearne regresije na model, ki upošteva tudi letno nihanje temperature. 
+Vredno je omeniti tudi, da so konstante pri tipično bolj toplih mesecih (na primer maj-$5$, junij-$6$, julij-$7$) nekoliko večje, pri tipično nekoliko hladnejših mesecih (na primer november-$11$, december-$12$, januar-$1$), pa nekoliko manjše.
+Zgoraj omenjene opazke, se ujemajo z intuicijo spreminjanja temperature skozi leto in nakazujejo ustrezno posplošitev modela enostavne linearne regresije na model, ki upošteva tudi letno nihanje temperature. 
+\newline
+Sedaj si oglejmo linearen trend spreminjanja temperature (skozi leta), v tako zastavljenem modelu. V ta namen se osredotočimo na številsko vrednost ocene za $\beta_0$. Ta je dokaj blizu številski vrednosti ocene za $\beta_0$ iz enostavne linearne regresije (v tem modelu dobimo oceno, ki znaša $0.064636$, v modelu enostavne linearne regresije pa $0.068303$). 
+Novejši model nam torej nakazuje nekoliko položneje naraščajoč linearen trend spreminjanja temperature, oziroma ocenjuje, da se temperatura letno dvigne povprečno za $0.064636$ stopinje.
+\newline
+\newline 
+P VREDNOSTI ??
+\newline
+\newline
+Lotimo se sedaj napovedovanja novih vrednosti, oziroma po željah naloge, napovedovanj temperatur v letu $2040$. Predpostavimo, da je model Gaussov, oziroma, da so šumi, ki so vključeni v model porazdeljeni normalno ($\sim N(0,~\sigma^2)$), ter da so šumi pri prihajajočih mesecih neodvisni od preostalih šumov. 
+\newline
+Iz teorije vemo, da je osnova za napovedovanja naslednje vrednosti pri Gaussovem modelu linearne regresije zapis:
+$$
+y_{m+1} = x_{m+1,1}\beta_1 + x_{m+1,2}\beta_ + \dots + x_{m+1,p}\beta_p + \epsilon_{m+1}.
+$$
+Ta je naveden na četrti strani \cite{lin_reg}, kjer si je možno ogledati tudi nekoliko več matematičnega ozadja in nadaljno izpeljavo intervala zaupanja za takšno napovedovanje naslednje vrednosti. 
+Izpeljavo bom tu izpustil, ter jo le apliciral na primerih, ki jih od nas zahteva naloga.
+\newline
+V modelu, ki upošteva nihanje letne temperature, smo se že dokopali do vrednosti cenilke za $\beta$, oziroma že poznamo številsko vrednost $\hat{\beta}$. 
+Za cenilko temperature januarja $2040$ je zato smiselno vzeti kar $c_1^T \hat{\beta}$, kjer s $c_1$ označujemo:
+$$
+    c_1= \begin{bmatrix}
+        2040 + 1/12 \\
+        \hdashline
+        1\\
+        0\\
+        \vdots\\
+        0
+    \end{bmatrix}.
+$$
+Opomnimo, da bi na enak način lahko ocenili temperaturo poljubnega meseca v letu $2040$, le $c_1$ bi morali ustrezno zamenjati za vektor $c_i$ (tu naj $i$ označuje zaporedno številko meseca), ki ima na prvi komponenti vrednost $2040 + i/12$, ter enico le na $i$-ti komponenti (prve komponente nismo šteli).
+Če bi želeli zamenjati leto ocene, bi $2040$ v vektorju ustrezno zamenjali z letom poizvedbe. 
+Naloga nas sprašuje po številski vrednosti ocene, zato jo zapišimo.
+Za mesec januar po izračunu s pomočjo datoteke znaša $3.243$.
+
+Za konstrukcijo intervala zaupanja se skličimo na formulo/izpeljavo iz \cite{lin_reg}, ki nam pove, da:
+$$
+    \frac{c^T\hat{\beta} - y_{m+1}}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}} \sim \text{Student}(m-p), 
+$$
+zato bo imel interval zaupanja za $\hat{y}_{m+1}$ obliko:
+$$
+    c^T\hat{\beta} - F^{-1}_{\text{Student}}\left(1 - \frac{\alpha}{2}\right)\widehat{SEP}_{+} < \hat{y}_{m+1} < c^T\hat{\beta} + F^{-1}_{\text{Student}}\left(1 - \frac{\alpha}{2}\right)\widehat{SEP}_{+}.
+$$
+V zgornjem zapisu velja:
+$$
+\widehat{SEP}_{+}  = \hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}~~~\text{in}~~~\hat{\sigma}_{+} = \frac{||Y - X\hat{\beta}||}{\sqrt{m - p}},
+$$
+vredno pa je omeniti še, da $m$ predstavlja število podatkov (v našem primeru $12n = 420$) $p$ pa število koeficientov v modelu (pri nas so to v modelu, ki upošteva tudi letno nihanje temperature $\beta_0,~\beta_1,~\dots,~\beta_{12}$, torej $p$ = 13).
+\newline
+Ker smo cenilko za januarsko temperaturo leta $2040$ zapisali kot $c_1^T \hat{\beta}$, bo interval zaupanja po zgornji formuli oblike:
+$$
+[c_1^T\hat{\beta} - F^{-1}_{\text{Student}}\left(1 - \frac{\alpha}{2}\right)\widehat{SEP}_{+} ,~c_1^T\hat{\beta} - F^{-1}_{\text{Student}}\left(1 + \frac{\alpha}{2}\right)\widehat{SEP}_{+} ]
+$$
+Sedaj se za pomoč pri izračunavi ponovno obrnemo na program $python$, pri iskanju približka vrednosti inverza Studentove porazdelitve (pri nas stopnje $420 - 13 = 407$) pa nam na pomoč priskoči internetom. 
+Navodila iz začetka projektne naloge narekujejo, da moramo interval zaupanja izračunati tako pri $\alpha = 0.01$, kot tudi pri $\alpha = 0.05$. 
+Izračuni nam povedo, da stopnji tveganja $0.05$ pripada interval zaupanja $[-0.1607,~6.6466]$, pri stopnji tveganja $0.01$ pa je interval zaupanja pričakovano nekoliko večji in je $[-1.238,~7.7239]$.
 
 
 
 
-SEDAJ SI OGLEJMO LINEAREN TREND SPREMNINJANJE TEMPERATURE, V TAKO ZASTAVLJENEM MODELU!
+Podobno se lotimo ocenjevanja povprečne temperature za leto $2040$. Za cenilko bomo vzeli kar aritmetično sredino cenilk mesecev leta $2040$, t.j.:
+$$
+\frac{1}{12}\sum_{i=1}^{12}{c_i^T \hat{\beta}},~\text{kjer}~c_i~\text{predstavlja ustrezne podatke za $i$ ti mesec v letu $2040$}. 
+$$
+Zgornjo cenilko za povprečno temperaturo leta $2040$ lahko zapišemo tudi kot $\tilde{c}^{T} \hat{\beta}$, kjer je:
+$$
+\tilde{c} = \begin{bmatrix}
+    \frac{1}{12}\sum_{i=1}^{12}{(2040 + i/12)}\\
+    1/12\\
+    1/12\\
+    \vdots\\
+    1/12
+\end{bmatrix}=
+\begin{bmatrix}
+    2040 + \frac{1}{144}\sum_{i=1}^{12}{i}\\
+    1/12\\
+    1/12\\
+    \vdots\\
+    1/12
+\end{bmatrix}=
+\begin{bmatrix}
+    2040 + \frac{13}{24}\\
+    1/12\\
+    1/12\\
+    \vdots\\
+    1/12
+\end{bmatrix}.
+$$
+Številska vrednost zgoraj zapisane ocene znaša $13.6482$, kar je torej naša ocena povprečne temperature v letu $2040$.
+\newline
+Določimo še intervala zaupanja za oceno povprečne temperature v letu $2040$. Postopamo po enakem postopku, kot smo to storili zgoraj, le da tokrat $c_1$ zamenja $\tilde{c}$, torej bo interval zaupanja oblike:
+$$
+[\tilde{c}^T\hat{\beta} - F^{-1}_{\text{Student}}\left(1 - \frac{\alpha}{2}\right)\widehat{SEP}_{+} ,~\tilde{c}^T\hat{\beta} - F^{-1}_{\text{Student}}\left(1 + \frac{\alpha}{2}\right)\widehat{SEP}_{+} ].
+$$
+Številske vrednosti intervala so pri stopnji tveganaj 0.05 enake $[10.2445,~17.0519]$, pri stopnji tveganja $0.01$ pa $[9.1672,~18.1292]$.
+
+
+
+
+
+
+
 
 \bibliographystyle{siam}
 \begin{thebibliography}{9}
-    \bibitem{clanek}
-        E.~Zakrajšek, \emph{Verižnica}, [ogled 30.~6.~2023], dostopno na \url{https://ucilnica.fmf.uni-lj.si/pluginfile.php/8283/mod_resource/conte4/predavanja/veriznica/veriznica.pdf}.
+    \bibitem{lin_reg}
+        M. Raič \emph{Zapiski predavanj - Statistično sklepanje pri Gaussovi linearni regresiji} [ogled 5.~7.~2023], dostopno na \url{https://ucilnica.fmf.uni-lj.si/pluginfile.php/135057/mod_resource/content/2/Regresija_sklepanje.pdf}.
     \bibitem{poj_nepo_var}
-        M. Raič \emph{Zapiski predavanj- Izražava povprečja in variance pri podatkih, organiziranih po skupinah} [ogled 3.~7.~2023], dostopno na \url{https://ucilnica.fmf.uni-lj.si/pluginfile.php/135261/mod_resource/content/2/Razcep_var.pdf}.
+        M. Raič \emph{Zapiski predavanj - Izražava povprečja in variance pri podatkih, organiziranih po skupinah} [ogled 3.~7.~2023], dostopno na \url{https://ucilnica.fmf.uni-lj.si/pluginfile.php/135261/mod_resource/content/2/Razcep_var.pdf}.
 \end{thebibliography}
 
 \end{document}
