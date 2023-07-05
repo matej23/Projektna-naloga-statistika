@@ -12,15 +12,6 @@ meseci = temperature.MESEC
 
 X_eno = [[1, leta[i] + meseci[i]/12] for i in range(len(Y_podatki))]
 X_nihanje = [([leta[i]+ meseci[i]/12] + [1 if meseci[i] == j else 0 for j in range(1, 13)]) for i in range(len(Y_podatki))]
-"""
-X_nihanje_pomozni = [([leta[i]+ meseci[i]/12] + [[1, leta[i] + meseci[i]/12] if meseci[i] == j else [0,0] for j in range(1, 13)]) for i in range(len(Y_podatki))]
-X_nihanje_neuspelo = []
-for i in range(len(X_nihanje_pomozni)):
-    vrstica_i = [X_nihanje_pomozni[i][0]]
-    for j in range(1, len(X_nihanje_pomozni[i])):
-        vrstica_i += X_nihanje_pomozni[i][j]
-    X_nihanje_neuspelo.append(vrstica_i)
-"""
 #-----------------------------------------------------------------------------
 def cenilka_beta(X,Y):
     Xt = np.array(X).transpose()

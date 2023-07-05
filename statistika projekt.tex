@@ -203,12 +203,15 @@ Na grafu je dobro vidno tudi analitično ozadje metode največjega verjetja, za 
 Natančneje, opazimo, da v številski oceni zavzamemo maksimum funkcije verjetja.
 \newline 
 Komentirajmo še pomen velikosti (pri nas ocene) standardne napake. Funkcijo verjetja določajo (za vsako vrsto Kromatina) dani podatki (o tisti vrsti Kromatina), ki obenem v model vnašajo slučaj. 
-Zaradi slučajnosti, ki jih vnašajo podatki, bi radi ocenili napako, ki se pojavi pri določitvi argument maksimuma funkcije verjetja (torej cenilki po metodi največjega verjetja za parameter našega modela, t.j. $\hat{\theta}_{MNV}$).
+Zaradi slučajnosti, ki jih vnašajo podatki, bi radi ocenili napako, ki se morebiti pojavi pri tem, ko iz njih konstruiramo oceno (po metodi največjega verjetja) za parameter našega modela, t.j. $\hat{\theta}_{MNV}$.
+Nekoliko bolj direktno, gre v resnici za statistično vrednost, ki kvantificira, koliko se lahko ocenjena vrednost parametra razlikuje od dejanske neznane vrednosti pri ponovljenem vzorčenju.
 Vrednost standardne napake, oziroma v našem primeru njena ocena, nam torej določata velikost intervala okoli naše poračunane ocene za $\theta$ po metodi največjega verjetja. Na sliki je za vsako vrsto Kromatina to tudi označeno s prosojno obarvanim območjem, pri čemer meje intervala dodatno nakazuje vodoravna črtkasta daljica. 
 
 Vredno je omeniti tudi grafično opaženo korelacijo med položnostjo zavzetja maksimuma funkcije verjetja in velikostjo (ocene) standardne napake za pripadajočo vrsto Kromatina.
 Vidno je namreč, da sta številski oceni za standardni napaki kratkega in srednjega Kromatina skoraj enaki, kar se ujema z skoraj enakima širinama$~$"hriba"$~$na vrhu katerega funkcija zavzame maksimum. 
-V primerjavi s kratkim in srednjim Kromatinom, je številska ocena za standardno napako pri dolgem Kromatinu večja. Prav tako hitro vidimo, da pri grafu verjetja za dolgi Kromatin maksimum zavzamemo nekoliko bolj položno oziroma je širini že omenjenega$~$"hriba"$~$vidno večja.
+V primerjavi s kratkim in srednjim Kromatinom, je številska ocena za standardno napako pri dolgem Kromatinu večja. 
+Prav tako hitro vidimo, da pri grafu verjetja za dolgi Kromatin maksimum zavzamemo nekoliko bolj položno oziroma je širini že omenjenega$~$"hriba"$~$vidno večja.
+Opaženo je v resnici iz teoretičnega vidika pričakovano že iz zgornje interpretacije vrednosti standardne napake. 
 \newline
 \newline
 Sedaj se lotimo podnaloge e). Že zgoraj omenjena $python$ datoteka nam poda številske ocene tudi za $\theta$ po metodi momentov. 
@@ -223,9 +226,7 @@ Opazimo, da so številske vrednosti ocen standardnih napak (za $\theta$ po metod
 Slednje je seveda razumljivo, saj smo za oceno standardne napake vzeli koren asimptotične ocene srednje kvadratične napake, pri čemer smo $\theta$ nadomestili z glede na metodo določeno cenilko. 
 Ker nam metoda največjega verjetja asimptotične daje boljšo cenilko, je tudi ocena za standardno napako, pridobljena prek te metode manjša. 
 Pomen (ocene) standardne napake je enak tistemu, ki smo ga komentirali na začetku obravnave metode največjega verjetja.
-\newline
-\newline
-KOMENTAR STANDARDNE NAPAKE, ZAKAJ JE RELEVANTNA??
+Če le ponovimo, gre za vrednost, ki meri/nam pomaga razumeti, kako se ocenjena vrednost parametra lahko razlikuje od dejanske neznane vrednosti pri ponovljenem vzorčenju.
 \newline
 \newline
 Podatke znotraj vrste Kromatina sedaj predstavimo še s histogramom. Pri tem določimo širino bloka oziroma število blokov histograma s pomočjo modificiranega Freedman–Diaconisovega pravila. 
