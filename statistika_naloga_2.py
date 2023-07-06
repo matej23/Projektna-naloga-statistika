@@ -7,7 +7,6 @@ kromatin_kratki = pd.read_csv('Kromatin_kratki.csv', names = ['DOLZINA'], header
 kromatin_srednji = pd.read_csv('Kromatin_srednji.csv', names = ['DOLZINA'], header=None)
 kromatin_dolgi = pd.read_csv('Kromatin_dolgi.csv', names = ['DOLZINA'],  header=None)
 
-#zapisimo cenilki, ki smo jo teoreticno ze poracunali
 def cenilka_mnv(podatki):
     theta = 0
     for i in range(len(podatki.DOLZINA)):
@@ -63,15 +62,12 @@ fig.tight_layout(pad=3.0)
 
 ax1.yaxis.grid(True, linestyle='-', which='major', color='lightgrey', alpha=0.25)
 ax1.set(axisbelow=True, ylabel='Verjetje', xlabel = "Vrednost parametra")
-#ax1.set_title('Verjetje za kratek Kromatin', loc="right")
 
 ax2.yaxis.grid(True, linestyle='-', which='major', color='lightgrey', alpha=0.25)
 ax2.set(axisbelow=True, ylabel='Verjetje', xlabel = "Vrednost parametra")
-#ax2.set_title('Verjetje za srednji Kromatin', loc="right")
 
 ax3.yaxis.grid(True, linestyle='-', which='major', color='lightgrey', alpha=0.25)
 ax3.set(axisbelow=True, ylabel='Verjetje', xlabel = "Vrednost parametra")
-#ax3.set_title('Verjetje za dolgi Kromatin', loc="right")
 
 ax1.plot(theta, vrednost_verjetja_kratki, color='r')
 ax1.legend(['Verjetje za kratek Kromatin'])
@@ -86,9 +82,6 @@ ax1.plot([theta_mnv_kratki - se_mnv_kratki, theta_mnv_kratki + se_mnv_kratki], [
 ax1.plot(theta_mnv_kratki- se_mnv_kratki, 1 * 10**(-40), marker="|", color="#FF9E9E")
 ax1.plot(theta_mnv_kratki+ se_mnv_kratki, 1 * 10**(-40), marker="|", color="#FF9E9E")
 
-#ax1.plot(theta_mnv_kratki - se_mnv_kratki, verjetje(theta_mnv_kratki - se_mnv_kratki, kromatin_kratki), marker='.', color="black")
-#ax1.plot(theta_mnv_kratki + se_mnv_kratki, verjetje(theta_mnv_kratki + se_mnv_kratki, kromatin_kratki), marker='.', color="black")
-
 int_kratki = np.linspace(theta_mnv_kratki - se_mnv_kratki, theta_mnv_kratki + se_mnv_kratki,1000)
 ax1.fill_between(int_kratki, 3.4*10**(-40), color='#FF9E9E', alpha=0.3)
 
@@ -101,10 +94,6 @@ ax2.plot(theta_mnv_srednji+ se_mnv_srednji, 2 * 10**(-184), marker="|", color="#
 int_srednji = np.linspace(theta_mnv_srednji - se_mnv_srednji, theta_mnv_srednji + se_mnv_srednji, 1000)
 ax2.fill_between(int_srednji, 9.3*10**(-184), color='#92F799', alpha=0.2)
 
-#ax2.plot(theta_mnv_srednji - se_mnv_srednji, verjetje(theta_mnv_srednji - se_mnv_srednji, kromatin_srednji), marker='.', color="black")
-#ax2.plot(theta_mnv_srednji + se_mnv_srednji, verjetje(theta_mnv_srednji + se_mnv_srednji, kromatin_srednji), marker='.', color="black")
-
-
 ax3.plot([theta_mnv_dolgi, theta_mnv_dolgi], [0, verjetje(theta_mnv_dolgi, kromatin_dolgi)], linestyle='--', color="#7AB4FF")
 ax3.plot(theta_mnv_dolgi, verjetje(theta_mnv_dolgi, kromatin_dolgi), marker="o", color="black")
 ax3.plot([theta_mnv_dolgi - se_mnv_dolgi, theta_mnv_dolgi + se_mnv_dolgi], [1/4 * 10**(-119), 1/4 * 10**(-119)], linestyle='--', color="#7AB4FF")
@@ -113,12 +102,6 @@ ax3.plot(theta_mnv_dolgi + se_mnv_dolgi, 1/4 * 10**(-119), marker="|", color="#7
 
 int_dolgi = np.linspace(theta_mnv_dolgi - se_mnv_dolgi, theta_mnv_dolgi + se_mnv_dolgi, 1000)
 ax3.fill_between(int_dolgi, 1.2*10**(-119), color='#7AB4FF', alpha=0.3)
-# verjetje(int_dolgi, kromatin_dolgi)
-#ax3.plot(theta_mnv_dolgi - se_mnv_dolgi, verjetje(theta_mnv_dolgi - se_mnv_dolgi, kromatin_dolgi), marker='.', color="black")
-#ax3.plot(theta_mnv_dolgi + se_mnv_dolgi, verjetje(theta_mnv_dolgi + se_mnv_dolgi, kromatin_dolgi), marker='.',  color="black")
-
-#ax3.annotate("", xy=(3.5, 3.5), xytext=(0, 0), arrowprops=dict(arrowstyle="->"))
-
 #---------------------------------------------------------------------------------------------------------------------
 
 print('-----------------------------------------------------------------------------')

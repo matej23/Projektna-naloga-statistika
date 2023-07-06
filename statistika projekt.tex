@@ -21,13 +21,13 @@
 
 \begin{document}
 
-\title{Projekt statistika\\
+\title{Statistična analiza podatkov\\
     \large Projekt pri predmetu Statistika
 }
 \author{
     Matej Novoselec\\
 }
-\date{30.\ junij 2023}
+\date{junij, julij 2023}
 
 \maketitle
 \pagebreak
@@ -47,7 +47,7 @@ Za vsak tip družine izberemo enostaven slučajen vzorec velikosti $500$ in nari
     \end{center}    
 \end{figure}
 
-Hitro vidimo, da so vrednosti prvega, drugega in tretjega kvantila pri družinah tipa 1 (družinah z zakonskima ali zunajzakonskima partnerjema) višji od prvega, drugega in tretjega kvantila pri družinah tipa 2 in tipa 3. 
+Hitro vidimo, da so vrednosti prvega, drugega in tretjega kvartila pri družinah tipa 1 (družinah z zakonskima ali zunajzakonskima partnerjema) višji od prvega, drugega in tretjega kvartila pri družinah tipa 2 in tipa 3. 
 Iz tega lahko sklepamo, da so  povprečju dohodki omenjenega tipa družin večji od obeh ostalih tipov. Na podoben način lahko sklepamo tudi, da so dohodki v enostarševski družini z očetom v povprečju nekoliko višji od dohodkov enostarševskih družin z materjo. 
 Opazimo tudi, da je varianca dohodkov pri družinah tipa 1 večja od variance podatkov o dohodkih družin preostalih tipov. 
 Osamelcev opazimo največ pri družinah tipa 2, podatki pri družinah tipa 3 pa so najmanj razpršeni. 
@@ -68,9 +68,9 @@ Opažanja so prikazana z vzporednimi škatlami z brki, pri čemer temnejše obar
 \end{figure}
 
 Opazimo, da je bil zgoraj izbrani vzorec, kljub temu, da je bil dokaj majhen glede na število vseh podatkov, v veliki meri (vsaj iz vidika ostalih štirih vzorcev) representativen.
-Vidno je namreč, da so vrednosti prvega in tretjega kvantila pri vzorcih dokaj usklajeni. 
+Vidno je namreč, da so vrednosti prvega in tretjega kvartila pri vzorcih dokaj usklajeni. 
 Tudi iz vidika števila osamelcev je prvotno izbran vzorec representativen. 
-Nekoliko se od representativnosti odmaknemo le pri vrednosti drugega kvantila, ki je pri našem vzorcu nekoliko nižje kot pri ostalih, posledično pa so podatki o dohodkih prvotno izbranega vzorca nekoliko nagnjeni k višjim vrednostim.
+Nekoliko se od representativnosti odmaknemo le pri vrednosti drugega kvartila, ki je pri našem vzorcu nekoliko nižje kot pri ostalih, posledično pa so podatki o dohodkih prvotno izbranega vzorca nekoliko nagnjeni k višjim vrednostim.
 \newline
 \newline
 Zadnje podnaloge se za začetek lotimo nekoliko bolj teoretično, ter šele nato vstavimo podatke za izračun željenih vrednosti. 
@@ -99,8 +99,9 @@ Vrednost deleža pojasnjene variance le dodatno potrdi že zapisano.
 
 \section{Kromatin}
 Vredno je zapisati nekoliko bolj matematično interpretacijo problema/navodila. 
-Podatki pripadajo trem različnim eksperimentom (podatki so ločeni glede na dolžino opazovanega Kromatina), ki bodo določali končne vrednosti in rezultate, a so problemi, ki jih podajajo, teoretično iste narave. 
+Podatki pripadajo trem različnim eksperimentom (podatki so ločeni glede na vrsto opazovanega Kromatina), ki bodo določali končne vrednosti in rezultate, a so problemi, ki jih podajajo, teoretično iste narave. 
 Za podan problem sedaj razvijemo teoretični pristop in se lotimo reševanja podnaloge a) in b). 
+\newline
 \newline
 Imamo $n$ neodvisnih, enako porazdeljenih slučajnih spremenljivk, označimo jih z $R_1,~R_2,~\dots,~R_n$. 
 Porazdeljene naj bodo Rayleighovo, t.j. z gostoto:
@@ -131,6 +132,7 @@ Iščemo cenilko za $\theta$ po metodi največjega verjetja, zato si ogledamo en
 $$
 0 = \frac{\partial l(\theta \mid (r_1,~\dots,~r_n))}{\partial \theta} = - \frac{2n}{\theta} + \frac{1}{\theta^3}\sum_{i=1}^{n}{r_i^2}.
 $$
+Tu je vredno omeniti, da si je dovolj ogledati zgornjo enakost, ker iščemo maksimum zapisane funkcije, ki ga v limitah definicijskega območja (v našem primeru) ne bomo zavzeli.
 Za cenilko po metodi največjega verjetja tako dobimo:
 $$
 \hat{\theta}_{MNV} = \sqrt{\frac{1}{2n}{\sum_{i=1}^{n}{r_i^2}}}~.
@@ -162,7 +164,7 @@ Sedaj se lotimo reševanja podnaloge c). Ker je cenilka za $\theta$ po metodi mo
     = \frac{2}{\pi}\bigg(\frac{2 \theta^2 - \big(\frac{\pi}{2} \theta\big)^2}{n}\bigg) = \frac{\theta^2}{n} \bigg(\frac{4 - \pi}{\pi}\bigg)
     \end{split}
 \end{equation*}
-Po zgornjem komentarju torej
+Po zgornjem komentarju torej velja:
 $$
 MSE(\hat{\theta}_{MM}) = \frac{\theta^2}{n} \bigg(\frac{4 - \pi}{\pi}\bigg)\approx \frac{\theta^2}{n} \cdot 0{,}273.
 $$
@@ -185,7 +187,7 @@ Podnaloga d) nam narekuje oddaljitev od teoretičnih zapisov in izračun števil
 Ta nam po obdelavi podatkov za posamezno vrsto Kromatina pove, da številska ocena za $\theta$ po metodi največjega verjetja pri kratkem Kromatinu znaša $1.1238$, pri srednjem Kromatinu znaša $2.0812$, pri dolgem Kromatinu pa $3.4045$.
 Standardno napako lahko sedaj številsko ocenimo s pomočjo številske ocene za $\theta$ (po metodi največjega verjetja). Natančneje, za oceno uporabimo:
 $$
-    \hat{SE}(\hat{\theta}_{MNV}) = \sqrt{\frac{1}{4n}} \cdot\hat{\theta}_{MNV}.
+    \widehat{SE}(\hat{\theta}_{MNV}) = \sqrt{\frac{1}{4n}} \cdot\hat{\theta}_{MNV}.
 $$
 Številska ocena za standardno napako tako pri kratkem Kromatinu znaša $0.059735$, pri srednjem Kromatinu $0.065743$, ter pri dolgem Kromatinu $0.148161$.
 Zapisane številske ocene si oglejmo na spodnji sliki. 
@@ -259,7 +261,8 @@ Kljub temu smo lahko nad ujemanjem gostot (med seboj) in histograma pri vseh vrs
 
 \pagebreak
 
-\section{Naloga 3}
+\section{Temperatura}
+
 Naloga nam pove, da imamo podane mesečne temperature (torej $12$ podatkov letno) za $n$ zaporednih let (v našem primeru podatki med letoma $1986$ in $2020$, torej $n = 35$).
 Smiselno je podatke o meritvah zapisati kot urejene pare, da se bomo lahko problema lotili z linearno regresijo.
 Opažene meritve so smiselno časovne urejene (leto-mesec), zato si podatke lahko predstavljamo kot pare $(x_i,~y_i)_{i=1,~2,~\dots,~12n}$, kjer $x_i$ predstavlja časovno komponento problema, $y_i$ pa opaženo temperaturo pri časovno $i$-ti meritvi. 
@@ -306,13 +309,14 @@ Podatki so grafično predstavljeni na spodnji sliki.
 Vseeno z opazkami, predvsem o naraščujočem linearnem trendu, ravnajmo nekoliko bolj previdno. 
 Oglejmo si, ali je opisan linearen trend spreminjanja temperature s časom statistično značilen. 
 \newline
+Na tej točki je vredno omeniti, da je za nadeljevanje potrebno predpostaviti, da so šumi med seboj neodvisni in porazdeljeni normalno.
 Vemo, da številska ocena za $\beta_{1}$ znaša $0.068303$. 
-Radi bi preverili, ali nam tako velika ocena faktorja linernega trenda že zagotavlja, da je verjetnost v primeru, ko je faktor linearnega trenda v resnici ničelen ali negativen (to bo določala alternativna hipoteza) manjša od $0.05$ (standardne stopnje tveganja). 
+Radi bi preverili, ali bomo uspeli zavrniti ustrezno ničelno domnevo (ki bo predpostavljala, da ni linearnega trenda) pri standardni stopnji tveganja. 
 V resnici bo potrebno konstruirati ničelno in alternativno hipotezo, ter testno statistiko, ki bo uporabila oceno za $\beta_1$ (torej bo vezana na $\hat{\beta}_1$). Želeli bi, da bo le-ta zavrnila ničelno hipotezo, ko bo ta v resnici izpoljena, z verjetnostjo, ki bo manjča ali enaka $0.05$. 
 \newline
 Zapišimo sedaj hipotezi:
 $$
-\text{ničelna hipoteza, H}_0:~\beta_1 \geq 0,~\text{ter alternativna hipoteza, H}_1:~\beta_1 < 0.
+\text{ničelna hipoteza, H}_0:~\beta_1 = 0,~\text{ter alternativna hipoteza, H}_1:~\beta_1 \neq 0.
 $$
 Iščemo testno statistiko, ki bo vsebovala $\hat{\beta}_1,~\text{ter bo spoštovala:}$
 $$
@@ -327,43 +331,47 @@ oziroma, za nas nekoliko bolj koristno (ker bomo varianco morali nepristransko o
 $$
 \frac{c^T\hat{\beta} - c^T \beta}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}}~\sim~\text{Student}(m - p),~\text{ter}~ \hat{\sigma}_{+} = \frac{||Y - X\hat{\beta}||}{\sqrt{m - p}}.
 $$
-Sedaj konstruirajmo test oblike:
+Sedaj konstruirajmo test, pri katerem bo relevantno, ali velja:
 $$
-    {\hat{\beta}_1 = c^T\hat{\beta}} > D,~\text{kjer bomo $D$ še določili prek zgornjega pogoja za verjetnost}.
+    |\hat{\beta}_1| = |c^T\hat{\beta}| < D,~\text{kjer bomo $D$ še določili prek zgornjega pogoja za verjetnost}.
 $$
-Prek testa bomo $\text{H}_0$ zavrnili, če bo ${\hat{\beta}_1 = c^T\hat{\beta}} \leq D$. Torej želimo, tak $D$, da bo veljalo:
+Prek testa bomo $\text{H}_0$ zavrnili, če bo $|\hat{\beta}_1| = |c^T\hat{\beta}| \geq D$. Torej želimo, tak $D$, da bo veljalo:
 $$
-\text{P$(c^T\hat{\beta}$} \leq D~|~c^T\beta \geq 0)\leq \alpha = 0.05. 
+\text{P$(|c^T\hat{\beta}|$} \geq D~|~c^T\beta = 0)\leq \alpha = 0.05. 
 $$
-Sedaj bomo z računsko manipulacijo prešli na pogoj, pri katerem si bomo lahko pomagali z zgoraj zapisano znano porazdelitvijo (Studentovo). 
-Opomnimo še, da bomo pogojno verjetno pretvorili v brezpogojno, ter vzeli $~c^T\beta = 0$, kar zagotavlja najboljši test. 
+Sedaj bomo z računsko manipulacijo prešli na pogoj, pri katerem si bomo lahko pomagali z zgoraj zapisano znano (Studentovo) porazdelitvijo. 
+Opomnimo še, da bomo pogojno verjetnost pretvorili v brezpogojno, ter ob tem upoštevali $~c^T\beta = 0$.
 Za $D$ tako dobimo pogoj:
 $$
-\text{P}\left(\frac{c^T\hat{\beta}}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}} \leq \frac{D}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}}\right)\leq \alpha = 0.05. 
+\text{P}\left(\left|\frac{c^T\hat{\beta}}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}}\right| \geq \frac{D}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}}\right)\leq \alpha = 0.05. 
 $$
-Sedaj izrazimo z inverzom Studentove porazdelitve, ter neenakost za verjetnost spremenimo v enakost, da bo mo testa največja. Dobimo:
+Sedaj upoštevamo simetričnost in izrazimo z inverzom Studentove porazdelitve, ter neenakost za verjetnost spremenimo v enakost, da bo moč testa največja. Dobimo:
 $$
-\frac{D}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}} = F^{-1}_{\text{Student}}(\alpha),
+\frac{D}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}} = F^{-1}_{\text{Student}}\left(1 - \frac{\alpha}{2}\right),
 $$
 oziroma:
 $$
-D = F^{-1}_{\text{Student}}(\alpha) \left(\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}\right).
+D = F^{-1}_{\text{Student}}\left(1 - \frac{\alpha}{2}\right) \left(\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}\right).
 $$
 Vredno je omeniti, da gre tu za Studentovo porazdelitev s $m - p = 420 - 2 = 418$ prostorskimi stopnjami. 
-Po zgornji formuli za $D$ številska vrednost znaša $-2.771661633794501$.
+Po zgornji formuli za $D$ številska vrednost (s pomočjo \cite{student} in pomožne datoteke) znaša $3.3049$.
 \newline
-ZAKAJ NE PRIDE PRAV??? - VERJETNO TO SPLOH NI TO!!
+Ker je $\hat{\beta}_1 = 0.068303 < D = 3.3049$, ničelne hipoteze pri standardni stopnji tveganja ne bi zavrnili, zato nimamo statistične značilnosti linearnega trenda spreminjanja temperature s časom. 
+To v resnici pomeni, da nimamo dovolj izrazitih podatkov, da bi zavrnili ničelno hipotezo oziroma v našem primeru sklepali, da obstaja linearen trend spreminjanja temperature s časom.
 \newline
 \newline
 Sedaj poračunajmo še p-vrednost preizkusa, ki ga določa številska ocena $\hat{\beta}_1$. 
 Kot smo to storili že zgoraj, zapišimo $[0,~1]\hat{\beta} = c^T \hat{\beta} = \hat{\beta}_1$.
 Zanima nas v resnici mejna stopnja tveganja, t.j. meja med zavrnitvijo in nezavrnitvijo. 
-Torej pri višji stopnji tveganja bi domnevo ($H_0)$ zavrnili, pri nižji pa ne. 
+Torej pri višji stopnji tveganja bi domnevo zavrnili, pri nižji pa ne. 
 Iščemo torej $\alpha_p$, tako da bo veljalo:
 $$
-\text{P}\left(Z \leq \frac{c^T\hat{\beta}}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}}\right) = \alpha_p,~\text{kjer }Z~\sim~\text{Student}(418). 
+\text{P}\left(|Z| \geq \frac{c^T\hat{\beta}}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}}\right) = \alpha_p,~\text{kjer }Z~\sim~\text{Student}(418). 
 $$
-Program $python$ nam problem reducira na: $P(Z \leq 0.00903021) = \alpha_p$, s pomočjo \cite{student} pa dobimo še oceno $\alpha_p = 0.5036$.
+Upoštevamo simetričnost, program $python$ pa nam problem reducira na: $P(Z \leq 0.00903021) = 1 - \frac{\alpha_p}{2}$, s pomočjo \cite{student} pa dobimo še oceno $\alpha_p = 0.7482$.
+\newline
+Opomnimo, da bi si statistično značilnost lahko ogledali tudi prek p-vrednosti. Če je p-vrednost manjša od standardne stopnje tveganja, potem imamo statistično značilnost, če pa je p-vrednost večja, statistične značilnosti nimamo. 
+Hitro opazimo, da je v tem primeru seveda p-vrednost večja od standardne stopnje tveganja, zato še dodatno potrdimo, da nimamo statistične značilnosti linearnega trenda spreminjanja temperature s časom.
 \newline
 \newline
 Drugega dela (podnaloge b)) se lotimo z modifikacijo prvega dela. Želimo konstruirati model, ki bo vključeval tudi letno nihanje temperature. 
@@ -435,6 +443,7 @@ To je bilo seveda za pričakovati, saj kot smo že omenili, gre pri vrednostih $
 Vredno je omeniti tudi, da so konstante pri tipično bolj toplih mesecih (na primer maj-$5$, junij-$6$, julij-$7$) nekoliko večje, pri tipično nekoliko hladnejših mesecih (na primer november-$11$, december-$12$, januar-$1$), pa nekoliko manjše.
 Zgoraj omenjene opazke, se ujemajo z intuicijo spreminjanja temperature skozi leto in nakazujejo ustrezno posplošitev modela enostavne linearne regresije na model, ki upošteva tudi letno nihanje temperature. 
 \newline
+\newline
 Sedaj si oglejmo linearen trend spreminjanja temperature (skozi leta), v tako zastavljenem modelu. V ta namen se osredotočimo na številsko vrednost ocene za $\beta_0$. Ta je dokaj blizu številski vrednosti ocene za $\beta_0$ iz enostavne linearne regresije (v tem modelu dobimo oceno, ki znaša $0.064636$, v modelu enostavne linearne regresije pa $0.068303$). 
 Novejši model nam torej nakazuje nekoliko položneje naraščajoč linearen trend spreminjanja temperature, oziroma ocenjuje, da se temperatura letno dvigne povprečno za $0.064636$ stopinje.
 \newline
@@ -442,14 +451,15 @@ Novejši model nam torej nakazuje nekoliko položneje naraščajoč linearen tre
 Izračuna p-vrednosti pri tem delu naloge, se lotimo podobno kot pri prejšnem. Zapišimo $\hat{\beta}_0 = c^T\hat{\beta}$, kjer tokrat $c^T = [1,~0,~\dots,~0]$.
 Spet išemo $\alpha_p$, tako da bo veljalo:
 $$
-\text{P}\left(Z \leq \frac{c^T\hat{\beta}}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}}\right) = \alpha_p,~\text{kjer }Z~\sim~\text{Student}(407). 
+\text{P}\left(|Z| \geq \frac{c^T\hat{\beta}}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}}\right) = \alpha_p,~\text{kjer }Z~\sim~\text{Student}(407). 
 $$
-Ponovno najprej numerično reduciramo na $P(Z \leq 0.03844344) = \alpha_p$, kar nam da $\alpha_p = 0.51532$.
+Upoštevamo simetričnost Studentove porazdelitve in ponovno numerično reduciramo na $P(Z \leq 0.03844344) = 1 - \frac{\alpha_p}{2}$, kar nam da $\alpha_p = 0.74234$.
+\newline
 \newline
 Komentirajmo sedaj razliko v številski vrednosti p-vrednosti modela enostavne regresije in modela, ki vključuje tudi nihanje temperature. 
-Opazimo, da je p-vrednost pri modelu, ki upošteva nihanje temperature nekoliko večja od p-vrednosti pri modelu enostavne linearne regresije ($0.5036$ proti $0.51532$). 
-To je bilo seveda za pričakovati, saj je bil glavni namen modifikacije modela enostavne regresije v model, ki vključuje tudi nihanje temperature korak k natančnejši zaznavi rasti temperature v odvisnosti od časovne komponente. 
-Kljub temu, obe p-vrednosti le nekoliko presežeta vrednost $0.5$, kar nakazuje tudi nato, da bi lahko vrednosti ocen za koeficient linearne rasti temperature (torej pri enostavni linearni regresiji $\hat{\beta}_1 = 0.068303$ pri modificiranem modelu pa $\hat{\beta}_0 = 0.064636$) bili posledici slučaja (četudi bi zares v modelu enostavne linearne regresije veljalo $\beta_1 > 0$ oziroma v modificiranem modelu zares veljalo $\beta_0 > 0$). 
+Opazimo, da je p-vrednost pri modelu, ki upošteva nihanje temperature nekoliko manjša od p-vrednosti pri modelu enostavne linearne regresije ($0.7482$ proti $0.74234$). 
+Obe p-vrednosti presežeta vrednost $0.7$, kar nakazuje tudi nato, da bi lahko vrednosti ocen za koeficient linearne rasti temperature (torej pri enostavni linearni regresiji $\hat{\beta}_1 = 0.068303$, pri modificiranem modelu pa $\hat{\beta}_0 = 0.064636$) bili posledici slučaja, ter da je pri njuni interpretaciji potrebno biti previden.
+Velike p-vrednosti preizkusa, nam namreč nakazujejo šibkost argumentov, prek katerih bi nasprotovali ničelni hipotezi. 
 Nekoliko bolj intuitivno, bi to lahko povezali že z dejstvom, da sta številski oceni za omenjeni cenilki le komaj pozitivni (oziroma komaj presežeta vrednost $0$).
 \newline
 \newline

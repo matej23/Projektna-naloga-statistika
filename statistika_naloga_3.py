@@ -21,6 +21,8 @@ def cenilka_beta(X,Y):
     cenilka = np.matmul(inv_XtX, XtY)
     return cenilka
 #-----------------------------------------------------------------------------
+# cenilki za oba modela
+
 beta_eno = cenilka_beta(X_eno, Y_podatki)
 b0_eno = beta_eno[0]
 b1_eno = beta_eno[1]
@@ -64,7 +66,9 @@ print(f'OCENA ZA TEMPERATURO JANUARJA 2040: {round(ocena_za_jan_2040, 4)}\n'
 print('---------------------------------------------------------------------------------------------------------')
 
 #--------------------------------------------------------------------
-m = len(Y_podatki)
+# napovedi in intervali zaupanja
+
+m= len(Y_podatki)
 p_nih = len(beta_nihanje)
 p_eno = 2
 
@@ -115,6 +119,7 @@ print(f'Interval zaupanja za oceno povprečno temperaturo leta 2024 je:\n'
 print('---------------------------------------------------------------------------------------------------------')
 
 #-----------------------------------------------------------------------------
+# p-vrednosti in statistična značilnost
 
 Xt_eno = np.array(X_eno).transpose()
 XtX_eno = np.matmul(Xt_eno, X_eno)
@@ -136,20 +141,19 @@ ccT_nih_p = np.array(cc_nih_p).transpose()
 ccT_beta_nih_p = np.matmul(ccT_nih_p, beta_nihanje)
 sep_plus_cc_nih_p = sigma_plus_nih * math.sqrt(1 + np.matmul(np.matmul(ccT_nih_p, inv_XtX_nihanje), cc_nih_p))
 
-
-
-#inv_st_005_418 = -1.6485
-#print(inv_st_005_418 * sep_plus_c1_eno)
-
 nast_za_p_vrednost_eno = b1_eno/sep_plus_c1_eno
 nast_za_p_vrednost_nih  = b0_nihanje/sep_plus_cc_nih_p
-p_vrednost_eno = 2
-p_vrednost_nih = 3
+
+p_vrednost_eno = 1 - 0.5036/2
+p_vrednost_nih = 1 - 0.51532/2
 
 print(f'P-VREDNOSTI:\n'
       f'-pri preizkusu povezanim z enostavno regresijom je argument za Student(418): {round(nast_za_p_vrednost_eno, 8)},  '
-      f'p-vrednost bo torej: {0.5036}\n'
+      f'p-vrednost bo torej: {p_vrednost_eno}\n'
       f'-pri preizkusu povezanim z upoštevanim nihanjem temperature je argument za Student(407): {round(nast_za_p_vrednost_nih, 8)},  '
-      f'p-vrednost bo torej: {0.51532}.')
+      f'p-vrednost bo torej: {p_vrednost_nih}.')
 print('---------------------------------------------------------------------------------------------------------')
 
+inv_st5_418 = 1.96566
+print(f'Vrednost koeficienta D, ki določa test, ki spoštuje standardno stopnjo tveganja je: {round(inv_st5_418 * sep_plus_cc_nih_p, 4)}.')
+print('---------------------------------------------------------------------------------------------------------')
