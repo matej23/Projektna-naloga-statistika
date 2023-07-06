@@ -308,7 +308,7 @@ Oglejmo si, ali je opisan linearen trend spreminjanja temperature s časom stati
 \newline
 Vemo, da številska ocena za $\beta_{1}$ znaša $0.068303$. 
 Radi bi preverili, ali nam tako velika ocena faktorja linernega trenda že zagotavlja, da je verjetnost v primeru, ko je faktor linearnega trenda v resnici ničelen ali negativen (to bo določala alternativna hipoteza) manjša od $0.05$ (standardne stopnje tveganja). 
-V resnici bo potrebno konstruirati ničelno in alternativno hipotezo, ter testno statistiko, ki bo uporabila oceno za $\beta_1$. Želeli bi, da bo le-ta zavrnila ničelno hipotezo, ko bo ta v resnici izpoljena, z verjetnostjo, ki bo manjča ali enaka $0.05$. 
+V resnici bo potrebno konstruirati ničelno in alternativno hipotezo, ter testno statistiko, ki bo uporabila oceno za $\beta_1$ (torej bo vezana na $\hat{\beta}_1$). Želeli bi, da bo le-ta zavrnila ničelno hipotezo, ko bo ta v resnici izpoljena, z verjetnostjo, ki bo manjča ali enaka $0.05$. 
 \newline
 Zapišimo sedaj hipotezi:
 $$
@@ -343,13 +343,13 @@ $$
 $$
 Sedaj izrazimo z inverzom Studentove porazdelitve, ter neenakost za verjetnost spremenimo v enakost, da bo mo testa največja. Dobimo:
 $$
-\frac{D}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}} = F^{-1}_{Student}(\alpha),
+\frac{D}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}} = F^{-1}_{\text{Student}}(\alpha),
 $$
 oziroma:
 $$
-D = F^{-1}_{Student}(\alpha) \left(\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}\right).
+D = F^{-1}_{\text{Student}}(\alpha) \left(\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}\right).
 $$
-Vredno je omeniti, da gre tu za Studentovo porazdelitev z $m - p = 420 - 2 = 418$ stopnjami. 
+Vredno je omeniti, da gre tu za Studentovo porazdelitev s $m - p = 420 - 2 = 418$ prostorskimi stopnjami. 
 Po zgornji formuli za $D$ številska vrednost znaša $-2.771661633794501$.
 \newline
 ZAKAJ NE PRIDE PRAV??? - VERJETNO TO SPLOH NI TO!!
@@ -364,8 +364,8 @@ $$
 \text{P}\left(Z \leq \frac{c^T\hat{\beta}}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}}\right) = \alpha_p,~\text{kjer }Z~\sim~\text{Student}(418). 
 $$
 Program $python$ nam problem reducira na: $P(Z \leq 0.00903021) = \alpha_p$, s pomočjo \cite{student} pa dobimo še oceno $\alpha_p = 0.5036$.
-
-
+\newline
+\newline
 Drugega dela (podnaloge b)) se lotimo z modifikacijo prvega dela. Želimo konstruirati model, ki bo vključeval tudi letno nihanje temperature. 
 Podatke spet obravnavamo kot pare $(x_j,~y_j)$. Definirajmo:
 $$
