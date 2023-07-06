@@ -45,7 +45,7 @@ ax.set(axisbelow=True, title="PODATKI O POVPREČNIH MESEČNIH TEMPERATURAH SKOZI
 
 #plt.show()
 
-('---------------------------------------------------------------------------------------------------------')
+print('---------------------------------------------------------------------------------------------------------')
 print(f'Enostavna linearna regresija nam da številski oceni: \n'
       f'-beta_0: {round(b0_eno,4)}\n'
       f'-beta_1: {round(b1_eno,6)}')
@@ -65,42 +65,42 @@ print('-------------------------------------------------------------------------
 
 #--------------------------------------------------------------------
 m = len(Y_podatki)
-p = len(beta_nihanje)
+p_nih = len(beta_nihanje)
+p_eno = 2
 
 Xt_nihanje = np.array(X_nihanje).transpose()
 XtX_nihanje = np.matmul(Xt_nihanje, X_nihanje)
 inv_XtX_nihanje = np.linalg.inv(XtX_nihanje)
 
 X_beta_nihanje = np.matmul(X_nihanje, beta_nihanje)
-vekt = [(Y_podatki[i] - X_beta_nihanje[i]) for i in range(m)]
+vekt_nih = [(Y_podatki[i] - X_beta_nihanje[i]) for i in range(m)]
 
-sigma_plus = np.linalg.norm(vekt)/(math.sqrt(m - p))
+sigma_plus_nih = np.linalg.norm(vekt_nih)/(math.sqrt(m - p_nih))
 
-inv_st5 = 1.9658
-inv_st1 = 2.5880
-
+inv_st5_407 = 1.96581
+inv_st1_407 = 2.58796
 
 c1 = [2040+1/12, 1] + [0 for _ in range(11)]
 c1T = np.array(c1).transpose()
 c1T_beta = np.matmul(c1T, beta_nihanje)
-sep_plus_c1 = sigma_plus * math.sqrt(1 + np.matmul(np.matmul(c1T, inv_XtX_nihanje), c1))
+sep_plus_c1 = sigma_plus_nih * math.sqrt(1 + np.matmul(np.matmul(c1T, inv_XtX_nihanje), c1))
 
-int_jan_5_levo = c1T_beta - inv_st5 * sep_plus_c1
-int_jan_5_desno = c1T_beta + inv_st5 * sep_plus_c1
+int_jan_5_levo = c1T_beta - inv_st5_407 * sep_plus_c1
+int_jan_5_desno = c1T_beta + inv_st5_407 * sep_plus_c1
 
-int_jan_1_levo = c1T_beta - inv_st1 * sep_plus_c1
-int_jan_1_desno = c1T_beta + inv_st1 * sep_plus_c1
+int_jan_1_levo = c1T_beta - inv_st1_407 * sep_plus_c1
+int_jan_1_desno = c1T_beta + inv_st1_407 * sep_plus_c1
 
 cc = [2040 + 13/24] + [1/12 for _ in range(12)]
 ccT = np.array(cc).transpose()
 ccT_beta = np.matmul(ccT, beta_nihanje)
-sep_plus_cc = sigma_plus * math.sqrt(1 + np.matmul(np.matmul(c1T, inv_XtX_nihanje), c1))
+sep_plus_cc = sigma_plus_nih * math.sqrt(1 + np.matmul(np.matmul(c1T, inv_XtX_nihanje), c1))
 
-int_povp_5_levo = ccT_beta - inv_st5 * sep_plus_cc
-int_povp_5_desno = ccT_beta + inv_st5 * sep_plus_cc
+int_povp_5_levo = ccT_beta - inv_st5_407 * sep_plus_cc
+int_povp_5_desno = ccT_beta + inv_st5_407 * sep_plus_cc
 
-int_povp_1_levo = ccT_beta - inv_st1 * sep_plus_cc
-int_povp_1_desno = ccT_beta + inv_st1 * sep_plus_cc
+int_povp_1_levo = ccT_beta - inv_st1_407 * sep_plus_cc
+int_povp_1_desno = ccT_beta + inv_st1_407 * sep_plus_cc
 
 #------------------------------------------------------------------------------------------
 print(f'Interval zaupanja za oceno temperature jan 2024 je:\n'
@@ -112,5 +112,44 @@ print('-------------------------------------------------------------------------
 print(f'Interval zaupanja za oceno povprečno temperaturo leta 2024 je:\n'
       f'-pri alfa = 0.05: [{round(int_povp_5_levo,4)}, {round(int_povp_5_desno,4)}]\n'
       f'-pri alfa = 0.01: [{round(int_povp_1_levo,4)}, {round(int_povp_1_desno,4)}]')
+print('---------------------------------------------------------------------------------------------------------')
+
+#-----------------------------------------------------------------------------
+
+Xt_eno = np.array(X_eno).transpose()
+XtX_eno = np.matmul(Xt_eno, X_eno)
+inv_XtX_eno = np.linalg.inv(XtX_eno)
+
+X_beta_eno = np.matmul(X_eno, beta_eno)
+vekt_eno = [(Y_podatki[i] - X_beta_eno[i]) for i in range(m)]
+
+sigma_plus_eno = np.linalg.norm(vekt_eno)/(math.sqrt(m - p_eno))
+
+c1_eno = [0,1]
+c1T_eno = np.array(c1_eno).transpose()
+c1T_beta_eno = np.matmul(c1T_eno, beta_eno)
+sep_plus_c1_eno = sigma_plus_eno * math.sqrt(1 + np.matmul(np.matmul(c1T_eno, inv_XtX_eno), c1_eno))
+
+
+cc_nih_p = [1] + [0 for _ in range(12)]
+ccT_nih_p = np.array(cc_nih_p).transpose()
+ccT_beta_nih_p = np.matmul(ccT_nih_p, beta_nihanje)
+sep_plus_cc_nih_p = sigma_plus_nih * math.sqrt(1 + np.matmul(np.matmul(ccT_nih_p, inv_XtX_nihanje), cc_nih_p))
+
+
+
+#inv_st_005_418 = -1.6485
+#print(inv_st_005_418 * sep_plus_c1_eno)
+
+nast_za_p_vrednost_eno = b1_eno/sep_plus_c1_eno
+nast_za_p_vrednost_nih  = b0_nihanje/sep_plus_cc_nih_p
+p_vrednost_eno = 2
+p_vrednost_nih = 3
+
+print(f'P-VREDNOSTI:\n'
+      f'-pri preizkusu povezanim z enostavno regresijom je argument za Student(418): {round(nast_za_p_vrednost_eno, 8)},  '
+      f'p-vrednost bo torej: {0.5036}\n'
+      f'-pri preizkusu povezanim z upoštevanim nihanjem temperature je argument za Student(407): {round(nast_za_p_vrednost_nih, 8)},  '
+      f'p-vrednost bo torej: {0.51532}.')
 print('---------------------------------------------------------------------------------------------------------')
 

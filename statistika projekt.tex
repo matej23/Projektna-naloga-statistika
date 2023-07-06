@@ -306,9 +306,65 @@ Podatki so grafično predstavljeni na spodnji sliki.
 Vseeno z opazkami, predvsem o naraščujočem linearnem trendu, ravnajmo nekoliko bolj previdno. 
 Oglejmo si, ali je opisan linearen trend spreminjanja temperature s časom statistično značilen. 
 \newline
+Vemo, da številska ocena za $\beta_{1}$ znaša $0.068303$. 
+Radi bi preverili, ali nam tako velika ocena faktorja linernega trenda že zagotavlja, da je verjetnost v primeru, ko je faktor linearnega trenda v resnici ničelen ali negativen (to bo določala alternativna hipoteza) manjša od $0.05$ (standardne stopnje tveganja). 
+V resnici bo potrebno konstruirati ničelno in alternativno hipotezo, ter testno statistiko, ki bo uporabila oceno za $\beta_1$. Želeli bi, da bo le-ta zavrnila ničelno hipotezo, ko bo ta v resnici izpoljena, z verjetnostjo, ki bo manjča ali enaka $0.05$. 
 \newline
-KAJ SPLOH JE TO ??? 
+Zapišimo sedaj hipotezi:
+$$
+\text{ničelna hipoteza, H}_0:~\beta_1 \geq 0,~\text{ter alternativna hipoteza, H}_1:~\beta_1 < 0.
+$$
+Iščemo testno statistiko, ki bo vsebovala $\hat{\beta}_1,~\text{ter bo spoštovala:}$
+$$
+\text{P($\text{H}_0$ zavrnemo $|$ $\text{H}_0$ drži) $\leq \alpha = 0.05$}. 
+$$
+Opazimo, da lahko $\beta_1$ zapišemo tudi kot $[0,~1]\beta = c^T\beta$, oziroma $\hat{\beta}_1 = c^T\hat{\beta}$.
+To nam koristi, saj si sedaj lahko pomagamo z iz predavanja znanim dejstvom, ki nam pove, da:
+$$
+    \frac{c^T\hat{\beta} - c^T \beta}{\sigma\sqrt{1 + c^T(X^TX)^{-1}c}}~\sim~\text{N}(0,~1), 
+$$
+oziroma, za nas nekoliko bolj koristno (ker bomo varianco morali nepristransko oceniti s pomočjo podatkov):
+$$
+\frac{c^T\hat{\beta} - c^T \beta}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}}~\sim~\text{Student}(m - p),~\text{ter}~ \hat{\sigma}_{+} = \frac{||Y - X\hat{\beta}||}{\sqrt{m - p}}.
+$$
+Sedaj konstruirajmo test oblike:
+$$
+    {\hat{\beta}_1 = c^T\hat{\beta}} > D,~\text{kjer bomo $D$ še določili prek zgornjega pogoja za verjetnost}.
+$$
+Prek testa bomo $\text{H}_0$ zavrnili, če bo ${\hat{\beta}_1 = c^T\hat{\beta}} \leq D$. Torej želimo, tak $D$, da bo veljalo:
+$$
+\text{P$(c^T\hat{\beta}$} \leq D~|~c^T\beta \geq 0)\leq \alpha = 0.05. 
+$$
+Sedaj bomo z računsko manipulacijo prešli na pogoj, pri katerem si bomo lahko pomagali z zgoraj zapisano znano porazdelitvijo (Studentovo). 
+Opomnimo še, da bomo pogojno verjetno pretvorili v brezpogojno, ter vzeli $~c^T\beta = 0$, kar zagotavlja najboljši test. 
+Za $D$ tako dobimo pogoj:
+$$
+\text{P}\left(\frac{c^T\hat{\beta}}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}} \leq \frac{D}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}}\right)\leq \alpha = 0.05. 
+$$
+Sedaj izrazimo z inverzom Studentove porazdelitve, ter neenakost za verjetnost spremenimo v enakost, da bo mo testa največja. Dobimo:
+$$
+\frac{D}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}} = F^{-1}_{Student}(\alpha),
+$$
+oziroma:
+$$
+D = F^{-1}_{Student}(\alpha) \left(\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}\right).
+$$
+Vredno je omeniti, da gre tu za Studentovo porazdelitev z $m - p = 420 - 2 = 418$ stopnjami. 
+Po zgornji formuli za $D$ številska vrednost znaša $-2.771661633794501$.
 \newline
+ZAKAJ NE PRIDE PRAV??? - VERJETNO TO SPLOH NI TO!!
+\newline
+\newline
+Sedaj poračunajmo še p-vrednost preizkusa, ki ga določa številska ocena $\hat{\beta}_1$. 
+Kot smo to storili že zgoraj, zapišimo $[0,~1]\hat{\beta} = c^T \hat{\beta} = \hat{\beta}_1$.
+Zanima nas v resnici mejna stopnja tveganja, t.j. meja med zavrnitvijo in nezavrnitvijo. 
+Torej pri višji stopnji tveganja bi domnevo ($H_0)$ zavrnili, pri nižji pa ne. 
+Iščemo torej $\alpha_p$, tako da bo veljalo:
+$$
+\text{P}\left(Z \leq \frac{c^T\hat{\beta}}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}}\right) = \alpha_p,~\text{kjer }Z~\sim~\text{Student}(418). 
+$$
+Program $python$ nam problem reducira na: $P(Z \leq 0.00903021) = \alpha_p$, s pomočjo \cite{student} pa dobimo še oceno $\alpha_p = 0.5036$.
+
 
 Drugega dela (podnaloge b)) se lotimo z modifikacijo prvega dela. Želimo konstruirati model, ki bo vključeval tudi letno nihanje temperature. 
 Podatke spet obravnavamo kot pare $(x_j,~y_j)$. Definirajmo:
@@ -383,7 +439,18 @@ Sedaj si oglejmo linearen trend spreminjanja temperature (skozi leta), v tako za
 Novejši model nam torej nakazuje nekoliko položneje naraščajoč linearen trend spreminjanja temperature, oziroma ocenjuje, da se temperatura letno dvigne povprečno za $0.064636$ stopinje.
 \newline
 \newline 
-P VREDNOSTI ??
+Izračuna p-vrednosti pri tem delu naloge, se lotimo podobno kot pri prejšnem. Zapišimo $\hat{\beta}_0 = c^T\hat{\beta}$, kjer tokrat $c^T = [1,~0,~\dots,~0]$.
+Spet išemo $\alpha_p$, tako da bo veljalo:
+$$
+\text{P}\left(Z \leq \frac{c^T\hat{\beta}}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}}\right) = \alpha_p,~\text{kjer }Z~\sim~\text{Student}(407). 
+$$
+Ponovno najprej numerično reduciramo na $P(Z \leq 0.03844344) = \alpha_p$, kar nam da $\alpha_p = 0.51532$.
+\newline
+Komentirajmo sedaj razliko v številski vrednosti p-vrednosti modela enostavne regresije in modela, ki vključuje tudi nihanje temperature. 
+Opazimo, da je p-vrednost pri modelu, ki upošteva nihanje temperature nekoliko večja od p-vrednosti pri modelu enostavne linearne regresije ($0.5036$ proti $0.51532$). 
+To je bilo seveda za pričakovati, saj je bil glavni namen modifikacije modela enostavne regresije v model, ki vključuje tudi nihanje temperature korak k natančnejši zaznavi rasti temperature v odvisnosti od časovne komponente. 
+Kljub temu, obe p-vrednosti le nekoliko presežeta vrednost $0.5$, kar nakazuje tudi nato, da bi lahko vrednosti ocen za koeficient linearne rasti temperature (torej pri enostavni linearni regresiji $\hat{\beta}_1 = 0.068303$ pri modificiranem modelu pa $\hat{\beta}_0 = 0.064636$) bili posledici slučaja (četudi bi zares v modelu enostavne linearne regresije veljalo $\beta_1 > 0$ oziroma v modificiranem modelu zares veljalo $\beta_0 > 0$). 
+Nekoliko bolj intuitivno, bi to lahko povezali že z dejstvom, da sta številski oceni za omenjeni cenilki le komaj pozitivni (oziroma komaj presežeta vrednost $0$).
 \newline
 \newline
 Lotimo se sedaj napovedovanja novih vrednosti, oziroma po željah naloge, napovedovanj temperatur v letu $2040$. Predpostavimo, da je model Gaussov, oziroma, da so šumi, ki so vključeni v model porazdeljeni normalno ($\sim N(0,~\sigma^2)$), ter da so šumi pri prihajajočih mesecih neodvisni od preostalih šumov. 
@@ -428,11 +495,11 @@ vredno pa je omeniti še, da $m$ predstavlja število podatkov (v našem primeru
 \newline
 Ker smo cenilko za januarsko temperaturo leta $2040$ zapisali kot $c_1^T \hat{\beta}$, bo interval zaupanja po zgornji formuli oblike:
 $$
-[c_1^T\hat{\beta} - F^{-1}_{\text{Student}}\left(1 - \frac{\alpha}{2}\right)\widehat{SEP}_{+} ,~c_1^T\hat{\beta} - F^{-1}_{\text{Student}}\left(1 + \frac{\alpha}{2}\right)\widehat{SEP}_{+} ]
+\left[c_1^T\hat{\beta} - F^{-1}_{\text{Student}}\left(1 - \frac{\alpha}{2}\right)\widehat{SEP}_{+} ,~c_1^T\hat{\beta} - F^{-1}_{\text{Student}}\left(1 + \frac{\alpha}{2}\right)\widehat{SEP}_{+} \right]
 $$
-Sedaj se za pomoč pri izračunavi ponovno obrnemo na program $python$, pri iskanju približka vrednosti inverza Studentove porazdelitve (pri nas stopnje $420 - 13 = 407$) pa nam na pomoč priskoči internetom. 
+Sedaj se za pomoč pri izračunavi ponovno obrnemo na program $python$, pri iskanju približka vrednosti inverza Studentove porazdelitve (pri nas stopnje $420 - 13 = 407$) pa nam na pomoč priskoči \cite{student}. 
 Navodila iz začetka projektne naloge narekujejo, da moramo interval zaupanja izračunati tako pri $\alpha = 0.01$, kot tudi pri $\alpha = 0.05$. 
-Izračuni nam povedo, da stopnji tveganja $0.05$ pripada interval zaupanja $[-0.1607,~6.6466]$, pri stopnji tveganja $0.01$ pa je interval zaupanja pričakovano nekoliko večji in je $[-1.238,~7.7239]$.
+Izračuni nam povedo, da stopnji tveganja $0.05$ pripada interval zaupanja $[-0.1607,~6.6466]$, pri stopnji tveganja $0.01$ pa je interval zaupanja pričakovano nekoliko večji in je $[-1.2379,~7.7238]$.
 
 
 
@@ -471,7 +538,7 @@ Določimo še intervala zaupanja za oceno povprečne temperature v letu $2040$. 
 $$
 [\tilde{c}^T\hat{\beta} - F^{-1}_{\text{Student}}\left(1 - \frac{\alpha}{2}\right)\widehat{SEP}_{+} ,~\tilde{c}^T\hat{\beta} - F^{-1}_{\text{Student}}\left(1 + \frac{\alpha}{2}\right)\widehat{SEP}_{+} ].
 $$
-Številske vrednosti intervala so pri stopnji tveganaj 0.05 enake $[10.2445,~17.0519]$, pri stopnji tveganja $0.01$ pa $[9.1672,~18.1292]$.
+Številske vrednosti intervala so pri stopnji tveganaj 0.05 enake $[10.2445,~17.0519]$, pri stopnji tveganja $0.01$ pa $[9.1673,~18.1291]$.
 
 
 
@@ -479,6 +546,8 @@ $$
 
 
 
+
+\pagebreak
 
 \bibliographystyle{siam}
 \begin{thebibliography}{9}
@@ -486,6 +555,8 @@ $$
         M. Raič \emph{Zapiski predavanj - Statistično sklepanje pri Gaussovi linearni regresiji} [ogled 5.~7.~2023], dostopno na \url{https://ucilnica.fmf.uni-lj.si/pluginfile.php/135057/mod_resource/content/2/Regresija_sklepanje.pdf}.
     \bibitem{poj_nepo_var}
         M. Raič \emph{Zapiski predavanj - Izražava povprečja in variance pri podatkih, organiziranih po skupinah} [ogled 3.~7.~2023], dostopno na \url{https://ucilnica.fmf.uni-lj.si/pluginfile.php/135261/mod_resource/content/2/Razcep_var.pdf}.
+        \bibitem{student}
+        M. Bognar \emph{Student's t-Distribution} [ogled 5.~7.~2023], dostopno na \url{https://homepage.divms.uiowa.edu/~mbognar/applets/t.html}.
 \end{thebibliography}
 
 \end{document}
