@@ -52,7 +52,7 @@ print(f'Enostavna linearna regresija nam da številski oceni: \n'
       f'-beta_0: {round(b0_eno,4)}\n'
       f'-beta_1: {round(b1_eno,6)}')
 print('---------------------------------------------------------------------------------------------------------')
-print(f'Model linearne regresija, ki upoštevanje nihanje temperature skozi leti nam da številske ocene:\n'
+print(f'Model linearne regresija, ki upošteva nihanje temperature skozi leto nam da številske ocene:\n'
       f'-beta_0: {round(b0_nihanje,6)}\n'
       f'-[beta_1, beta_2, ..., beta_12]: {b1_12_nihanje}')
 print('---------------------------------------------------------------------------------------------------------')
@@ -113,7 +113,7 @@ print(f'Interval zaupanja za oceno temperature jan 2024 je:\n'
 print('---------------------------------------------------------------------------------------------------------')
 
 
-print(f'Interval zaupanja za oceno povprečno temperaturo leta 2024 je:\n'
+print(f'Interval zaupanja za oceno povprečne temperature leta 2024 je:\n'
       f'-pri alfa = 0.05: [{round(int_povp_5_levo,4)}, {round(int_povp_5_desno,4)}]\n'
       f'-pri alfa = 0.01: [{round(int_povp_1_levo,4)}, {round(int_povp_1_desno,4)}]')
 print('---------------------------------------------------------------------------------------------------------')

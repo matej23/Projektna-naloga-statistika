@@ -199,4 +199,4 @@ axh3.set_title("Meritve za dolgi Kromatin", loc = "right")
 axh3.set_ylabel("Pojavitve")
 axh3.set_xlabel("Dolžina Kromatina")
 
-plt.show()
+#plt.show()

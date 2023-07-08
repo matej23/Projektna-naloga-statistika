@@ -51,7 +51,7 @@ Hitro vidimo, da so vrednosti prvega, drugega in tretjega kvartila pri družinah
 Iz tega lahko sklepamo, da so v povprečju dohodki omenjenega tipa družin večji od obeh ostalih tipov. Na podoben način lahko sklepamo tudi, da so dohodki v enostarševski družini z očetom v povprečju nekoliko višji od dohodkov enostarševskih družin z materjo. 
 Opazimo tudi, da je varianca dohodkov pri družinah tipa 1 večja od variance podatkov o dohodkih družin preostalih tipov. 
 Osamelcev opazimo največ pri družinah tipa 2, podatki pri družinah tipa 3 pa so najmanj razpršeni. 
-Vredno je omeniti tudi, da je pri družinah tipa 1 in tipa 3 porazdelitev dohodkov nekoliko nagnjena k dohodkov višje vrednosti.
+Vredno je omeniti tudi, da je pri družinah tipa 1 in tipa 3 porazdelitev dohodkov nekoliko nagnjena k dohodkom višje vrednosti.
 \newline
 Povzeli bi lahko, da nekoliko izstopajo podatki o družinah tipa 1, ki imajo povprečno najvišji dohodek, a imajo obenem tudi veliko varianco, njihova porazdelitev pa je nagnjena k višjim vrednostim.
 Vseeno moramo biti s sklepanjem nekoliko pazljivi, saj je vzorec velikosti $500$ za $33403$ podatkov relativno majhen.
@@ -67,10 +67,10 @@ Opažanja so prikazana z vzporednimi škatlami z brki, pri čemer temnejše obar
     \end{center}    
 \end{figure}
 
-Opazimo, da je bil zgoraj izbrani vzorec, kljub temu, da je bil dokaj majhen glede na število vseh podatkov, v veliki meri (vsaj iz vidika ostalih štirih vzorcev) representativen.
+Opazimo, da je bil zgoraj izbrani vzorec, kljub temu, da je bil dokaj majhen glede na število vseh podatkov, v veliki meri (vsaj iz vidika ostalih štirih vzorcev) reprezentativen.
 Vidno je namreč, da so vrednosti prvega in tretjega kvartila pri vzorcih dokaj usklajeni. 
-Tudi iz vidika števila osamelcev je prvotno izbran vzorec representativen. 
-Nekoliko se od representativnosti odmaknemo le pri vrednosti drugega kvartila, ki je pri našem vzorcu nekoliko nižje kot pri ostalih, podatki o dohodkih prvotno izbranega vzorca pa so tudi nekoliko nagnjeni k višjim vrednostim.
+Tudi iz vidika števila osamelcev je prvotno izbran vzorec reprezentativen. 
+Nekoliko se od reprezentativnosti odmaknemo le pri vrednosti drugega kvartila, ki je pri našem vzorcu nekoliko nižje kot pri ostalih, podatki o dohodkih prvotno izbranega vzorca pa so tudi nekoliko nagnjeni k višjim vrednostim.
 \newline
 \newline
 Zadnje podnaloge se za začetek lotimo nekoliko bolj teoretično, ter šele nato vstavimo podatke za izračun željenih vrednosti. 
@@ -160,7 +160,7 @@ $$
 Sedaj se lotimo reševanja podnaloge c). Ker je cenilka za $\theta$ po metodi momentov nepristranska, velja $MSE(\hat{\theta}_{MM}) = Var(\hat{\theta}_{MM})$. Sedaj varianco tudi poračunajmo.
 \begin{equation*}
     \begin{split}
-    Var(\hat{\theta}_{MM}) = Var\bigg(\overline{R} \sqrt{\frac{2}{\pi}}\bigg) = \frac{2}{\pi} \left(\frac{Var(R)}{n} = \frac{2}{\pi}\frac{\EX(R^2) - (\EX(R))^2}{n}\right) = \\
+    Var(\hat{\theta}_{MM}) = Var\bigg(\overline{R} \sqrt{\frac{2}{\pi}}\bigg) = \frac{2}{\pi} \left(\frac{Var(R)}{n} = \frac{2}{\pi}\left(\frac{\EX(R^2) - (\EX(R))^2}{n}\right)\right) = \\
     = \frac{2}{\pi}\bigg(\frac{2 \theta^2 - \big(\frac{\pi}{2} \theta\big)^2}{n}\bigg) = \frac{\theta^2}{n} \bigg(\frac{4 - \pi}{\pi}\bigg)
     \end{split}
 \end{equation*}
@@ -234,7 +234,7 @@ Pomen (ocene) standardne napake je enak tistemu, ki smo ga komentirali na začet
 Podatke znotraj vrste Kromatina sedaj predstavimo še s histogramom. Pri tem določimo širino bloka oziroma število blokov histograma s pomočjo modificiranega Freedman–Diaconisovega pravila. 
 Ta nam prek medkvartilnega razmika določi optimalno širino blokov histograma. Omenjena optimalna širina bloka pri kratkem Kromatinu znaša $0.4685$, za srednji Kromatin $0.7976$, za dolgi Kromatin pa $1.4145$.
 Zapisane vrednosti širine blokov, se glede na razpon podatkov najbolje ujemajo (najbližje naravno število) s $7$ bloki pri kratkem Kromatinu, s $7$ bloki pri srednjem Kromatinu in z $8$ bloki pri dolgem Kromatinu. 
-Za vsako vrsto Kromatina, na pripadajoč histogram (določen s zgoraj zapisanim številom blokov) dorišimo še pripadajoči oceni za gostoti, ki smo jo dobili iz ocene za $\theta$ po metodi momentov in po metodi največjega verjetja. 
+Za vsako vrsto Kromatina, na pripadajoč histogram (določen s zgoraj zapisanim številom blokov) dorišimo še pripadajoči oceni za gostoti, ki smo ju dobili iz ocene za $\theta$ po metodi momentov in po metodi največjega verjetja. 
 \begin{figure}[H]
     \begin{center}
     \includegraphics[width=\linewidth]{naloga2f.png}
@@ -394,9 +394,8 @@ $$
     y_j = \beta_0 x_j + \sum_{i=1}^{12}{\beta_{i}~\mathds{1}_i(x_j)} + \epsilon_j,~j \in \{1,~2,~\dots,~12n\}.
 $$
 Zapisan model, si v resnici lahko predstavljamo kot posplošitev modela iz prve podnaloge z različno vrednostjo konstantne člena za podatke vsakega meseca. 
-\newline
-\newline
 Sedaj lahko zapišimo v  matrični obliki in postopamo prek postopka za linearno regresijo. 
+
 $$
 X= \left[\begin{array}{c:ccccc}
     x_1 & 1 & 0 & 0 & \dots & 0 \\
@@ -493,7 +492,7 @@ Opomnimo, da bi na enak način lahko ocenili temperaturo poljubnega meseca v let
 Naloga nas sprašuje po številski vrednosti ocene, zato jo zapišimo.
 Za mesec januar po izračunu s pomočjo datoteke znaša $3.243$.
 
-Za konstrukcijo intervala zaupanja se skličimo na formulo/izpeljavo iz \cite{lin_reg}, ki nam pove, da:
+Za konstrukcijo intervala zaupanja se skličemo na formulo/izpeljavo iz \cite{lin_reg}, ki nam pove, da:
 $$
     \frac{c^T\hat{\beta} - y_{m+1}}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}} \sim \text{Student}(m-p), 
 $$
