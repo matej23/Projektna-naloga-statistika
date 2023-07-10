@@ -133,27 +133,29 @@ sigma_plus_eno = np.linalg.norm(vekt_eno)/(math.sqrt(m - p_eno))
 c1_eno = [0,1]
 c1T_eno = np.array(c1_eno).transpose()
 c1T_beta_eno = np.matmul(c1T_eno, beta_eno)
-sep_plus_c1_eno = sigma_plus_eno * math.sqrt(1 + np.matmul(np.matmul(c1T_eno, inv_XtX_eno), c1_eno))
+sep_plus_c1_eno = sigma_plus_eno * math.sqrt(np.matmul(np.matmul(c1T_eno, inv_XtX_eno), c1_eno))
 
 
 cc_nih_p = [1] + [0 for _ in range(12)]
 ccT_nih_p = np.array(cc_nih_p).transpose()
 ccT_beta_nih_p = np.matmul(ccT_nih_p, beta_nihanje)
-sep_plus_cc_nih_p = sigma_plus_nih * math.sqrt(1 + np.matmul(np.matmul(ccT_nih_p, inv_XtX_nihanje), cc_nih_p))
+sep_plus_cc_nih_p = sigma_plus_nih * math.sqrt(np.matmul(np.matmul(ccT_nih_p, inv_XtX_nihanje), cc_nih_p))
 
 nast_za_p_vrednost_eno = b1_eno/sep_plus_c1_eno
 nast_za_p_vrednost_nih  = b0_nihanje/sep_plus_cc_nih_p
 
-p_vrednost_eno = 1 - 0.5036/2
-p_vrednost_nih = 1 - 0.51532/2
+pomoc_p_vredn_nih = 0.9999999999999911668434
+pomoc_p_vredn_eno = 0.9689
+p_vrednost_eno = 2*(1 - pomoc_p_vredn_eno)
+p_vrednost_nih = 2*(1 - pomoc_p_vredn_nih)
 
 print(f'P-VREDNOSTI:\n'
       f'-pri preizkusu povezanim z enostavno regresijom je argument za Student(418): {round(nast_za_p_vrednost_eno, 8)},  '
-      f'p-vrednost bo torej: {p_vrednost_eno}\n'
+      f'p-vrednost bo torej: {round(p_vrednost_eno, 6)}\n'
       f'-pri preizkusu povezanim z upoštevanim nihanjem temperature je argument za Student(407): {round(nast_za_p_vrednost_nih, 8)},  '
       f'p-vrednost bo torej: {p_vrednost_nih}.')
 print('---------------------------------------------------------------------------------------------------------')
 
 inv_st5_418 = 1.96566
-print(f'Vrednost koeficienta D, ki določa test, ki spoštuje standardno stopnjo tveganja je: {round(inv_st5_418 * sep_plus_cc_nih_p, 4)}.')
+print(f'Vrednost koeficienta D, ki določa test, ki spoštuje standardno stopnjo tveganja je: {round(inv_st5_418 * sep_plus_c1_eno, 4)}.')
 print('---------------------------------------------------------------------------------------------------------')

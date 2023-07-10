@@ -326,11 +326,11 @@ $$
 Opazimo, da lahko $\beta_1$ zapišemo tudi kot $[0,~1]\beta = c^T\beta$, oziroma $\hat{\beta}_1 = c^T\hat{\beta}$.
 To nam koristi, saj si sedaj lahko pomagamo z iz predavanj znanim dejstvom, ki nam pove, da:
 $$
-    \frac{c^T\hat{\beta} - c^T \beta}{\sigma\sqrt{1 + c^T(X^TX)^{-1}c}}~\sim~\text{N}(0,~1), 
+    \frac{c^T\hat{\beta} - c^T \beta}{\sigma\sqrt{c^T(X^TX)^{-1}c}}~\sim~\text{N}(0,~1), 
 $$
 oziroma, za nas nekoliko bolj koristno (ker bomo varianco morali nepristransko oceniti s pomočjo podatkov):
 $$
-\frac{c^T\hat{\beta} - c^T \beta}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}}~\sim~\text{Student}(m - p),~\text{ter}~ \hat{\sigma}_{+} = \frac{||Y - X\hat{\beta}||}{\sqrt{m - p}}.
+\frac{c^T\hat{\beta} - c^T \beta}{\hat{\sigma}_{+}\sqrt{c^T(X^TX)^{-1}c}}~\sim~\text{Student}(m - p),~\text{ter}~ \hat{\sigma}_{+} = \frac{||Y - X\hat{\beta}||}{\sqrt{m - p}}.
 $$
 Omenimo, da tu $m$ predstavlja število podatkov (pri nas $m = 12n = 420$), $p$ pa število koeficientov regresije (pri nas $p = 2$).
 Sedaj konstruirajmo test, pri katerem bo relevantno, ali velja:
@@ -345,20 +345,20 @@ Sedaj bomo z računsko manipulacijo prešli na pogoj, pri katerem si bomo lahko 
 Opomnimo še, da bomo pogojno verjetnost pretvorili v brezpogojno, ter ob tem upoštevali $~c^T\beta = 0$.
 Za $D$ tako dobimo pogoj:
 $$
-\text{P}\left(\left|\frac{c^T\hat{\beta}}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}}\right| \geq \frac{D}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}}\right)\leq \alpha = 0.05. 
+\text{P}\left(\left|\frac{c^T\hat{\beta}}{\hat{\sigma}_{+}\sqrt{c^T(X^TX)^{-1}c}}\right| \geq \frac{D}{\hat{\sigma}_{+}\sqrt{c^T(X^TX)^{-1}c}}\right)\leq \alpha = 0.05. 
 $$
 Sedaj upoštevamo simetričnost in izrazimo z inverzom Studentove porazdelitve, ter neenakost za verjetnost spremenimo v enakost, da bo moč testa največja. Dobimo:
 $$
-\frac{D}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}} = F^{-1}_{\text{Student}}\left(1 - \frac{\alpha}{2}\right),
+\frac{D}{\hat{\sigma}_{+}\sqrt{c^T(X^TX)^{-1}c}} = F^{-1}_{\text{Student}}\left(1 - \frac{\alpha}{2}\right),
 $$
 oziroma:
 $$
-D = F^{-1}_{\text{Student}}\left(1 - \frac{\alpha}{2}\right) \left(\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}\right).
+D = F^{-1}_{\text{Student}}\left(1 - \frac{\alpha}{2}\right) \left(\hat{\sigma}_{+}\sqrt{c^T(X^TX)^{-1}c}\right).
 $$
 Vredno je omeniti, da gre tu za Studentovo porazdelitev s $m - p = 420 - 2 = 418$ prostorskimi stopnjami. 
-Po zgornji formuli za $D$ številska vrednost (s pomočjo \cite{student} in pomožne datoteke) znaša $3.3049$.
+Po zgornji formuli za $D$ številska vrednost (s pomočjo \cite{student} in pomožne datoteke) znaša $0.0718$.
 \newline
-Ker je $\hat{\beta}_1 = 0.068303 < D = 3.3049$, ničelne hipoteze pri standardni stopnji tveganja ne bi zavrnili, zato nimamo statistične značilnosti linearnega trenda spreminjanja temperature s časom. 
+Ker je $\hat{\beta}_1 = 0.068303 < D = 0.0718$, ničelne hipoteze pri standardni stopnji tveganja ne bi zavrnili, zato nimamo statistične značilnosti linearnega trenda spreminjanja temperature s časom. 
 To v resnici pomeni, da nimamo dovolj izrazitih podatkov, da bi zavrnili ničelno hipotezo oziroma v našem primeru sklepali, da obstaja linearen trend spreminjanja temperature s časom.
 \newline
 \newline
@@ -368,11 +368,11 @@ Zanima nas v resnici mejna stopnja tveganja, t.j. meja med zavrnitvijo in nezavr
 Torej pri višji stopnji tveganja bi domnevo zavrnili, pri nižji pa ne. 
 Iščemo torej $\alpha_p$, tako da bo veljalo:
 $$
-\text{P}\left(|Z| \geq \frac{c^T\hat{\beta}}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}}\right) = \alpha_p,~\text{kjer }Z~\sim~\text{Student}(418). 
+\text{P}\left(|Z| \geq \frac{c^T\hat{\beta}}{\hat{\sigma}_{+}\sqrt{c^T(X^TX)^{-1}c}}\right) = \alpha_p,~\text{kjer }Z~\sim~\text{Student}(418). 
 $$
 Upoštevamo simetričnost, program $python$ pa nam problem reducira na: 
 $$
-P(Z \leq 0.00903021) = 1 - \frac{\alpha_p}{2},~\text{s pomočjo \cite{student} pa dobimo še oceno $\alpha_p = 0.7482$.}
+P(Z \leq 0.9689) = 1 - \frac{\alpha_p}{2},~\text{s pomočjo \cite{student} pa dobimo še oceno $\alpha_p = 0.0622$.}
 $$
 Opomnimo, da bi si statistično značilnost lahko ogledali tudi prek p-vrednosti. Če je p-vrednost manjša od standardne stopnje tveganja, potem imamo statistično značilnost, če pa je p-vrednost večja, statistične značilnosti nimamo. 
 Hitro opazimo, da je v tem primeru seveda p-vrednost večja od standardne stopnje tveganja, zato še dodatno potrdimo, da nimamo statistične značilnosti linearnega trenda spreminjanja temperature s časom.
@@ -454,16 +454,17 @@ Novejši model nam torej nakazuje nekoliko položneje naraščajoč linearen tre
 Izračuna p-vrednosti, pri tem delu naloge, se lotimo podobno kot pri prejšnem. Zapišimo $\hat{\beta}_0 = c^T\hat{\beta}$, kjer tokrat $c^T = [1,~0,~\dots,~0]$.
 Spet išemo $\alpha_p$, tokrat pa bo moralo veljati:
 $$
-\text{P}\left(|Z| \geq \frac{c^T\hat{\beta}}{\hat{\sigma}_{+}\sqrt{1 + c^T(X^TX)^{-1}c}}\right) = \alpha_p,~\text{kjer }Z~\sim~\text{Student}(407). 
+\text{P}\left(|Z| \geq \frac{c^T\hat{\beta}}{\hat{\sigma}_{+}\sqrt{c^T(X^TX)^{-1}c}}\right) = \alpha_p,~\text{kjer }Z~\sim~\text{Student}(407). 
 $$
-Upoštevamo simetričnost Studentove porazdelitve in ponovno numerično reduciramo na $P(Z \leq 0.03844344) = 1 - \frac{\alpha_p}{2}$, kar nam da $\alpha_p = 0.74234$.
+Upoštevamo simetričnost Studentove porazdelitve in ponovno numerično reduciramo na $P(Z \leq 7.95704896) = 1 - \frac{\alpha_p}{2}$, kar nam da $\alpha_p = 1.7764 \times 10^{-14}$.
 \newline
 \newline
 Komentirajmo sedaj razliko v številski vrednosti p-vrednosti modela enostavne regresije in modela, ki vključuje tudi nihanje temperature. 
-Opazimo, da je p-vrednost pri modelu, ki upošteva nihanje temperature nekoliko manjša od p-vrednosti pri modelu enostavne linearne regresije ($0.7482$ proti $0.74234$). 
-Obe p-vrednosti presežeta vrednost $0.7$, kar nakazuje tudi nato, da bi lahko vrednosti ocen za koeficient linearne rasti temperature (torej pri enostavni linearni regresiji $\hat{\beta}_1 = 0.068303$, pri modificiranem modelu pa $\hat{\beta}_0 = 0.064636$) bili posledici slučaja, ter da je pri njuni interpretaciji potrebno biti previden.
-Velike p-vrednosti preizkusa, nam namreč nakazujejo šibkost argumentov, prek katerih bi nasprotovali ničelni hipotezi. 
-Nekoliko bolj intuitivno, bi to lahko povezali že z dejstvom, da sta številski oceni za omenjeni cenilki le komaj pozitivni (oziroma komaj presežeta vrednost $0$).
+P-vrednost prvega modela (modela enostavne regresije), je opazno večja, preseže tudi vrednost standardne stopnje tveganja (znaša približno $0.0622$), p-vrednost pri drugem modelu, pa je dokaj manjša (znaša namreč le okoli $1.7764 \times 10^{-14}$).
+Ker p-vrednost pri modelu enostavne linearne regresije preseže vrednost $0.05$, prvi model nakazuje, da bi lahko vrednost ocene za koeficient linearne rasti temperature (torej pri enostavni linearni regresiji $\hat{\beta}_1 = 0.068303$) bil posledica slučaja, ter da je pri interpretaciji potrebno biti previden.
+Velike p-vrednosti preizkusa, nam namreč nakazujejo šibkost argumentov, prek katerih bi nasprotovali ničelni hipotezi (oziroma jo zavrgli in v našem primeru tako potrdili linearni trend). 
+Obratno nam (zelo) nizka p-vrednost, pri modelu, ki upošteva tudi spreminjanje temperature skozi leto, nakazuje, da imamo dobro argumentativno osnovo, na podlagi katere lahko nasprotujemo ničelni hipotezi. 
+To v našem primeru pomeni, da imamo osnovo, na podlagi katere lahko sklepamo, da do linearnega trenda spreminjanja temperature prihaja. 
 \newline
 \newline
 Lotimo se sedaj napovedovanja novih vrednosti, oziroma po željah naloge, napovedovanj temperatur v letu $2040$. Predpostavimo, da je model Gaussov, oziroma, da so šumi, ki so vključeni v model porazdeljeni normalno ($\sim N(0,~\sigma^2)$), ter da so šumi pri prihajajočih mesecih neodvisni od preostalih šumov. 
